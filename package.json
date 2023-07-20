@@ -1,6 +1,14 @@
 {
-  "name": "receipt-wrangler-core",
-  "version": "0.0.0",
+  "name": "@noah231515/receipt-wrangler-core",
+  "version": "0.0.1",
+  "description": "Shared client code for Receipt Wrangler",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:noah231515/receipt-wrangler-core.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +16,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^16.0.0",
     "@angular/common": "^16.0.0",
