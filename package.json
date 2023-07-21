@@ -1,6 +1,6 @@
 {
   "name": "@noah231515/receipt-wrangler-core",
-  "version": "0.0.2",
+  "version": "0.0.0-development",
   "description": "Shared client code for Receipt Wrangler",
   "repository": {
     "type": "git",
@@ -15,7 +15,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "publish:ci": "ng build && npm publish ./dist/core"
+    "publish:ci": "ng build && npm publish ./dist/core",
+    "semantic-release": "semantic-release"
   },
   "private": false,
   "dependencies": {
@@ -43,6 +44,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^16.1.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.0.2",
+    "semantic-release": "^21.0.7"
   }
 }
