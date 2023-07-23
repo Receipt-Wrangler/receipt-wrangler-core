@@ -1,4 +1,4 @@
-import { Group } from "@noah231515/receipt-wrangler-core";
+import { Group } from '../api/model/group';
 
 export class AddGroup {
   static readonly type = '[Group] Add Group';

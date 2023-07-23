@@ -1,7 +1,6 @@
-import { FeatureConfigState } from "src/store/feature-config.state";
-
-import { Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
-import { Store } from "@ngxs/store";
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { FeatureConfigState } from '../store/feature-config.state';
 
 /**
  * Add the template content to the DOM unless the condition is true.

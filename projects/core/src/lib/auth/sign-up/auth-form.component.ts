@@ -8,9 +8,9 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { catchError, of, switchMap, tap } from 'rxjs';
-import { AppInitService } from 'src/services/app-init.service';
-import { SnackbarService } from 'src/services/snackbar.service';
 import { AuthService } from '../../api/api/auth.service';
+import { AppInitService } from '../../services/app-init.service';
+import { SnackbarService } from '../../services/snackbar.service';
 import { GroupState } from '../../store/group.state';
 
 @Component({

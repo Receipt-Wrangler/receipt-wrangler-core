@@ -1,4 +1,4 @@
-import { AuthStateInterface } from '../interfaces';
+import { AuthStateInterface } from './auth-state.interface';
 
 export class SetAuthState {
   static readonly type = '[Auth] Set Auth State';
