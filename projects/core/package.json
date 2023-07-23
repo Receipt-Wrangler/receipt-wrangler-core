@@ -1,6 +1,6 @@
 {
   "name": "@noah231515/receipt-wrangler-core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "repository": {
     "type": "git",
     "url": "git@github.com:noah231515/receipt-wrangler-core.git"
@@ -14,9 +14,11 @@
     "@angular/compiler": "^16.1.6",
     "@angular/core": "^16.1.6",
     "@angular/forms": "^16.1.6",
-    "@angular/platform-browser": "^16.1.6",
+    "@angular/material": "^16.0.3",
     "@angular/platform-browser-dynamic": "^16.1.6",
+    "@angular/platform-browser": "^16.1.6",
     "@angular/router": "^16.1.6",
+    "ngx-mask": "^16.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
