@@ -4,12 +4,11 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChange,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
-import { BaseInputComponent } from 'src/base-input/base-input/base-input.component';
+import { BaseInputComponent } from '../../base-input/base-input/base-input.component';
 import { InputInterface } from '../input.interface';
 @Component({
   selector: 'app-input',
