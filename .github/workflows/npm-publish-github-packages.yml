@@ -18,6 +18,16 @@ jobs:
       - run: npm ci
       - run: npm test
 
+      - name: Upload Coverage Report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/cobertura-coverage.xml
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
