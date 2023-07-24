@@ -1,9 +1,8 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
-import { NgxsModule } from "@ngxs/store";
-import { ApiModule } from "@noah231515/receipt-wrangler-core";
-
-import { ClaimsService } from "./claims.service";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { NgxsModule } from '@ngxs/store';
+import { ApiModule } from '../api/api.module';
+import { ClaimsService } from './claims.service';
 
 describe('ClaimsService', () => {
   let service: ClaimsService;

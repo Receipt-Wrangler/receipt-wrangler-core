@@ -1,4 +1,3 @@
-import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -6,14 +5,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
+import { of } from 'rxjs';
 
-import { AuthForm } from './auth-form.component';
 import { ApiModule } from '../../api';
 import { ButtonModule } from '../../button';
 import { FeatureDirective } from '../../directives/feature.directive';
 import { InputModule } from '../../input';
 import { PipesModule } from '../../pipes/pipes.module';
 import { AppInitService } from '../../services/app-init.service';
+import { SnackbarService } from '../../services/snackbar.service';
+import { AuthForm } from './auth-form.component';
+import { AuthState } from '../../store/auth.state';
 
 describe('AuthForm', () => {
   let component: AuthForm;
@@ -27,7 +29,7 @@ describe('AuthForm', () => {
         HttpClientTestingModule,
         InputModule,
         MatSnackBarModule,
-        NgxsModule.forRoot([]),
+        NgxsModule.forRoot([AuthState]),
         NoopAnimationsModule,
         PipesModule,
         ReactiveFormsModule,
