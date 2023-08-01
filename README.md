@@ -1,27 +1,20 @@
-# ReceiptWranglerCore
+# Receipt Wrangler Core
+## Building
+1. make sure angular cli is installed by running `npm install -g @angular/cli`
+2. run `npm i`
+3. run `npm run build`
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.4.
+## Testing
+1. run `npm run test`
 
-## Development server
+## Development with desktop/mobile client
+To test local changes in core, and see changes in desktop/mobile, try the following steps:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. In core's root directory run `npm run build`
+2. Run `npm link ./dist` from core's root directory
+3. In either client's root directory run `npm link @noah231515/receipt-wrangler-core`
+4. Optionally, run `ng build --watch` to build on file changes
 
-## Code scaffolding
+After these steps, local changes made in core should appear and be usable in the linked app.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+See more at https://docs.npmjs.com/cli/v9/commands/npm-link?v=true
