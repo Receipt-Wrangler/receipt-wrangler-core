@@ -220,16 +220,25 @@ export class UserService {
      * Get amount owed for user
      * This will return the amount owed for the logged in user, in the specified group, [SYSTEM USER]
      * @param groupId The Id of the group to get amount owed for
+     * @param receiptIds The Id of the receipts to get amount owed for
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAmountOwedForUser(groupId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getAmountOwedForUser(groupId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getAmountOwedForUser(groupId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getAmountOwedForUser(groupId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAmountOwedForUser(groupId?: number, receiptIds?: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAmountOwedForUser(groupId?: number, receiptIds?: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAmountOwedForUser(groupId?: number, receiptIds?: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAmountOwedForUser(groupId?: number, receiptIds?: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (groupId === null || groupId === undefined) {
-            throw new Error('Required parameter groupId was null or undefined when calling getAmountOwedForUser.');
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (groupId !== undefined && groupId !== null) {
+            queryParameters = queryParameters.set('groupId', <any>groupId);
+        }
+        if (receiptIds) {
+            receiptIds.forEach((element) => {
+                queryParameters = queryParameters.append('receiptIds', <any>element);
+            })
         }
 
         let headers = this.defaultHeaders;
@@ -255,6 +264,7 @@ export class UserService {
 
         return this.httpClient.request<any>('get',`${this.basePath}/user/amountOwedForUser/${encodeURIComponent(String(groupId))}`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
