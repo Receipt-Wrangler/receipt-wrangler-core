@@ -1,10 +1,10 @@
 {
-  "name": "@noah231515/receipt-wrangler-core",
+  "name": "@receipt-wrangler/receipt-wrangler-core",
   "version": "0.0.0-development",
   "description": "Shared client code for Receipt Wrangler",
   "repository": {
     "type": "git",
-    "url": "git@github.com:noah231515/receipt-wrangler-core.git"
+    "url": "git@github.com:Receipt-Wrangler/receipt-wrangler-core.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
