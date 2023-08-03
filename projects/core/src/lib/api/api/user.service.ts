@@ -262,7 +262,7 @@ export class UserService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('get',`${this.basePath}/user/amountOwedForUser/${encodeURIComponent(String(groupId))}`,
+        return this.httpClient.request<any>('get',`${this.basePath}/user/amountOwedForUser`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
