@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { EncodedImage } from '../model/encodedImage';
 import { FileData } from '../model/fileData';
+import { Receipt } from '../model/receipt';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -143,6 +144,60 @@ export class ReceiptImageService {
 
         return this.httpClient.request<EncodedImage>('get',`${this.basePath}/receiptImage/${encodeURIComponent(String(receiptImageId))}`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Reads a receipt image and returns the parsed results
+     * This will parse and read a receipt image, [SYSTEM USER]
+     * @param receiptImageId Id of receipt image to perform magic fill on
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public magicFillReceipt(receiptImageId: number, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
+    public magicFillReceipt(receiptImageId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
+    public magicFillReceipt(receiptImageId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
+    public magicFillReceipt(receiptImageId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (receiptImageId === null || receiptImageId === undefined) {
+            throw new Error('Required parameter receiptImageId was null or undefined when calling magicFillReceipt.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (receiptImageId !== undefined && receiptImageId !== null) {
+            queryParameters = queryParameters.set('receiptImageId', <any>receiptImageId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Receipt>('get',`${this.basePath}/receiptImage/magicFill`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
