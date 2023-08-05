@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { EncodedImage } from '../model/encodedImage';
 import { FileData } from '../model/fileData';
+import { MagicFillCommand } from '../model/magicFillCommand';
 import { Receipt } from '../model/receipt';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -160,10 +161,10 @@ export class ReceiptImageService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public magicFillReceipt(body?: Object, receiptImageId?: number, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
-    public magicFillReceipt(body?: Object, receiptImageId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
-    public magicFillReceipt(body?: Object, receiptImageId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
-    public magicFillReceipt(body?: Object, receiptImageId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
+    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
+    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
+    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -192,7 +193,7 @@ export class ReceiptImageService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'image/_*'
+            'application/json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {

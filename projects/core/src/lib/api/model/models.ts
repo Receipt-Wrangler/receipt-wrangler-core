@@ -10,6 +10,7 @@ export * from './groupMember';
 export * from './item';
 export * from './itemStatus';
 export * from './loginCommand';
+export * from './magicFillCommand';
 export * from './notification';
 export * from './notificationType';
 export * from './pagedData';
