@@ -6,39 +6,34 @@ import {
   State,
   StateContext,
 } from '@ngxs/store';
+import { FeatureConfig } from '../api';
 import { SetFeatureConfig } from './feature-config.state.actions';
 
-export interface FeatureConfigStateInterface {
-  enableLocalSignUp: boolean;
-}
-
-@State<FeatureConfigStateInterface>({
+@State<FeatureConfig>({
   name: 'featureConfig',
-  defaults: { enableLocalSignUp: true },
+  defaults: { enableLocalSignUp: true, aiPoweredReceipts: false },
 })
 @Injectable()
 export class FeatureConfigState {
   @Selector()
-  static enableLocalSignUp(state: FeatureConfigStateInterface): boolean {
-    return state.enableLocalSignUp;
+  static enableLocalSignUp(state: FeatureConfig): boolean {
+    return state.enableLocalSignUp as boolean;
   }
 
   static hasFeature(feature: string) {
-    return createSelector(
-      [FeatureConfigState],
-      (state: FeatureConfigStateInterface) => {
-        return !!(state as any)[feature];
-      }
-    );
+    return createSelector([FeatureConfigState], (state: FeatureConfig) => {
+      return !!(state as any)[feature];
+    });
   }
 
   @Action(SetFeatureConfig)
   setFeatureConfig(
-    { patchState }: StateContext<FeatureConfigStateInterface>,
+    { patchState }: StateContext<FeatureConfig>,
     payload: SetFeatureConfig
   ) {
     patchState({
-      enableLocalSignUp: payload.config?.EnableLocalSignUp,
+      aiPoweredReceipts: payload.config?.aiPoweredReceipts,
+      enableLocalSignUp: payload.config?.enableLocalSignUp,
     });
   }
 }
