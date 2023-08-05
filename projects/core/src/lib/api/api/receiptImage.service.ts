@@ -155,18 +155,17 @@ export class ReceiptImageService {
     /**
      * Reads a receipt image and returns the parsed results
      * This will parse and read a receipt image, [SYSTEM USER]
+     * @param body 
      * @param receiptImageId Id of receipt image to perform magic fill on
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public magicFillReceipt(receiptImageId: number, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
-    public magicFillReceipt(receiptImageId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
-    public magicFillReceipt(receiptImageId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
-    public magicFillReceipt(receiptImageId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public magicFillReceipt(body?: Object, receiptImageId?: number, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
+    public magicFillReceipt(body?: Object, receiptImageId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
+    public magicFillReceipt(body?: Object, receiptImageId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
+    public magicFillReceipt(body?: Object, receiptImageId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (receiptImageId === null || receiptImageId === undefined) {
-            throw new Error('Required parameter receiptImageId was null or undefined when calling magicFillReceipt.');
-        }
+
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (receiptImageId !== undefined && receiptImageId !== null) {
@@ -193,10 +192,16 @@ export class ReceiptImageService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'image/_*'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
         return this.httpClient.request<Receipt>('get',`${this.basePath}/receiptImage/magicFill`,
             {
+                body: body,
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
