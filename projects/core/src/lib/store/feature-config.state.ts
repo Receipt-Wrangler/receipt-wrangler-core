@@ -20,6 +20,11 @@ export class FeatureConfigState {
     return state.enableLocalSignUp as boolean;
   }
 
+  @Selector()
+  static aiPoweredReceipts(state: FeatureConfig): boolean {
+    return state.aiPoweredReceipts as boolean;
+  }
+
   static hasFeature(feature: string) {
     return createSelector([FeatureConfigState], (state: FeatureConfig) => {
       return !!(state as any)[feature];
