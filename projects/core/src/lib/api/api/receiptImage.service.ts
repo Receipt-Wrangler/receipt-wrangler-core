@@ -199,7 +199,7 @@ export class ReceiptImageService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<Receipt>('get',`${this.basePath}/receiptImage/magicFill`,
+        return this.httpClient.request<Receipt>('post',`${this.basePath}/receiptImage/magicFill`,
             {
                 body: body,
                 params: queryParameters,
