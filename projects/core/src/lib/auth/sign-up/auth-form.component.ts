@@ -12,6 +12,7 @@ import { AuthService } from '../../api/api/auth.service';
 import { AppInitService } from '../../services/app-init.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { GroupState } from '../../store/group.state';
+import { UserValidators } from '../../validators/user-validators';
 
 @Component({
   selector: 'app-auth-form',
@@ -23,13 +24,14 @@ export class AuthForm implements OnInit {
   public isSignUp: boolean = true;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private appInitService: AppInitService,
     private authService: AuthService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store,
     private snackbarService: SnackbarService,
-    private appInitService: AppInitService
+    private store: Store,
+    private userValidators: UserValidators
   ) {}
 
   public ngOnInit(): void {
@@ -45,7 +47,10 @@ export class AuthForm implements OnInit {
 
   private initForm(): void {
     this.form = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      username: [
+        '',
+        [Validators.required, this.userValidators.uniqueUsername(0, '')],
+      ],
       password: ['', Validators.required],
     });
     if (this.isSignUp) {
