@@ -1,8 +1,8 @@
 <div class="d-flex align-items-center justify-content-center">
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <h2>{{ isSignUp ? "Sign Up" : "Login" }}</h2>
+    <h2>{{ headerText }}</h2>
     <div class="d-flex flex-column">
-      <ng-container *ngIf="isSignUp">
+      <ng-container *ngIf="isSignUp | async">
         <app-input
           label="Displayname"
           [inputFormControl]="form | formGet : 'displayname'"
@@ -22,19 +22,21 @@
       >
       </app-input>
     </div>
-    <div class="d-flex d-flex-column">
+    <div class="w-100 d-flex flex-column">
       <app-button
+        class="w-100"
         buttonClass="w-100 mb-2"
         type="submit"
-        [buttonText]="isSignUp ? 'Sign Up' : 'Login'"
+        [buttonText]="primaryButtonText"
       ></app-button>
       <app-button
         *appFeature="'enableLocalSignUp'"
+        class="w-100"
         buttonClass="w-100 "
         type="button"
         color="accent"
-        [buttonText]="isSignUp ? 'Back to Login' : 'Sign Up'"
-        [routerLink]="isSignUp ? ['/auth/login'] : ['/auth/sign-up']"
+        [buttonText]="secondaryButtonText"
+        [routerLink]="secondaryButtonRouterLink"
       ></app-button>
     </div>
   </form>

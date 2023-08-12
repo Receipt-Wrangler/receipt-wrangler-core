@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { catchError, of, switchMap, tap } from 'rxjs';
-import { AuthService } from '../../api/api/auth.service';
-import { AppInitService } from '../../services/app-init.service';
-import { SnackbarService } from '../../services/snackbar.service';
-import { GroupState } from '../../store/group.state';
-import { UserValidators } from '../../validators/user-validators';
+import { BehaviorSubject, catchError, of, switchMap, tap } from "rxjs";
+
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Store } from "@ngxs/store";
+
+import { AuthService } from "../../api/api/auth.service";
+import { AppInitService } from "../../services/app-init.service";
+import { SnackbarService } from "../../services/snackbar.service";
+import { GroupState } from "../../store/group.state";
+import { UserValidators } from "../../validators/user-validators";
 
 @Component({
   selector: 'app-auth-form',
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss'],
+  providers: [UserValidators],
 })
 export class AuthForm implements OnInit {
   public form: FormGroup = new FormGroup({});
-  public isSignUp: boolean = true;
+  public isSignUp: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  public headerText: string = '';
+  public primaryButtonText: string = '';
+  public secondaryButtonText: string = '';
+  public secondaryButtonRouterLink: string[] = [];
 
   constructor(
     private appInitService: AppInitService,
@@ -35,35 +39,68 @@ export class AuthForm implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.initForm();
+    this.listenForRouteChanges();
+    this.listenForIsSignUpChanges();
+  }
+
+  private listenForRouteChanges(): void {
     this.route.data
       .pipe(
         tap((data) => {
-          this.isSignUp = !!data?.['isSignUp'];
+          this.isSignUp.next(!!data?.['isSignUp']);
         })
       )
       .subscribe();
-    this.initForm();
+  }
+
+  private listenForIsSignUpChanges(): void {
+    this.isSignUp
+      .pipe(
+        tap((isSignUp) => {
+          if (isSignUp) {
+            this.headerText = 'Sign Up';
+            this.primaryButtonText = 'Sign Up';
+            this.secondaryButtonRouterLink = ['/auth/login'];
+            this.secondaryButtonText = 'Back to Login';
+            this.form
+              .get('username')
+              ?.addAsyncValidators(this.userValidators.uniqueUsername(0, ''));
+            this.form.addControl(
+              'displayname',
+              new FormControl('', Validators.required)
+            );
+          } else {
+            this.headerText = 'Login';
+            this.primaryButtonText = 'Login';
+            this.secondaryButtonRouterLink = ['/auth/sign-up'];
+            this.secondaryButtonText = 'Sign Up';
+            this.form
+              .get('username')
+              ?.removeAsyncValidators(
+                this.userValidators.uniqueUsername(0, '')
+              );
+            this.form.removeControl('displayname');
+          }
+        })
+      )
+      .subscribe();
   }
 
   private initForm(): void {
     this.form = this.formBuilder.group({
-      username: [
-        '',
-        [Validators.required, this.userValidators.uniqueUsername(0, '')],
-      ],
+      username: ['', [Validators.required]],
       password: ['', Validators.required],
     });
-    if (this.isSignUp) {
-      this.form.addControl(
-        'displayname',
-        new FormControl('', Validators.required)
-      );
+    if (this.isSignUp.getValue()) {
     }
   }
 
   public submit(): void {
     const isValid = this.form.valid;
-    if (isValid && this.isSignUp) {
+    const isSignUp = this.isSignUp.getValue();
+
+    if (isValid && isSignUp) {
       this.authService
         .signUp(this.form.value)
         .pipe(
@@ -77,7 +114,7 @@ export class AuthForm implements OnInit {
           )
         )
         .subscribe();
-    } else if (isValid && !this.isSignUp) {
+    } else if (isValid && !isSignUp) {
       this.authService
         .login(this.form.value)
         .pipe(
