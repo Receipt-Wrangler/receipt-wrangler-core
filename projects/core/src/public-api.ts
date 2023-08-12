@@ -1,6 +1,7 @@
 /*
  * Public API Surface of core
  */
+export * from './lib/animations';
 export * from './lib/api';
 export * from './lib/auth';
 export * from './lib/base-input';

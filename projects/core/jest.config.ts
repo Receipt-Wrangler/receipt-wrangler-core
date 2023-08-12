@@ -2,9 +2,7 @@
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
-
 import type { Config } from 'node_modules/jest';
-//import 'jest-preset-angular/setup-test';
 
 const config: Config = {
   preset: 'jest-preset-angular',

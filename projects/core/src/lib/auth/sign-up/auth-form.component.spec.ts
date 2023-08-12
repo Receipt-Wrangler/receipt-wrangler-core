@@ -16,6 +16,7 @@ import { AppInitService } from '../../services/app-init.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { AuthForm } from './auth-form.component';
 import { AuthState } from '../../store/auth.state';
+import { FeatureConfigState } from '../../store/feature-config.state';
 
 describe('AuthForm', () => {
   let component: AuthForm;
@@ -29,7 +30,7 @@ describe('AuthForm', () => {
         HttpClientTestingModule,
         InputModule,
         MatSnackBarModule,
-        NgxsModule.forRoot([AuthState]),
+        NgxsModule.forRoot([AuthState, FeatureConfigState]),
         NoopAnimationsModule,
         PipesModule,
         ReactiveFormsModule,
