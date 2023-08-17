@@ -9,8 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ReceiptPagedRequestFilter } from './receiptPagedRequestFilter';
 
-export interface PagedRequestCommand { 
+export interface ReceiptPagedRequestCommand { 
     /**
      * Page number
      */
@@ -23,9 +24,10 @@ export interface PagedRequestCommand {
      * field to order on
      */
     orderBy?: string;
-    sortDirection?: PagedRequestCommand.SortDirectionEnum;
+    sortDirection?: ReceiptPagedRequestCommand.SortDirectionEnum;
+    filter?: ReceiptPagedRequestFilter;
 }
-export namespace PagedRequestCommand {
+export namespace ReceiptPagedRequestCommand {
     export type SortDirectionEnum = 'asc' | 'desc' | '';
     export const SortDirectionEnum = {
         Asc: 'asc' as SortDirectionEnum,

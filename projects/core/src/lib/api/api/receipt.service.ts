@@ -18,9 +18,9 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { BulkStatusUpdateCommand } from '../model/bulkStatusUpdateCommand';
-import { PagedRequestCommand } from '../model/pagedRequestCommand';
 import { QuickScanCommand } from '../model/quickScanCommand';
 import { Receipt } from '../model/receipt';
+import { ReceiptPagedRequestCommand } from '../model/receiptPagedRequestCommand';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -315,10 +315,10 @@ export class ReceiptService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getReceiptsForGroup(body: PagedRequestCommand, groupId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getReceiptsForGroup(body: PagedRequestCommand, groupId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getReceiptsForGroup(body: PagedRequestCommand, groupId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getReceiptsForGroup(body: PagedRequestCommand, groupId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getReceiptsForGroup(body: ReceiptPagedRequestCommand, groupId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getReceiptsForGroup(body: ReceiptPagedRequestCommand, groupId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getReceiptsForGroup(body: ReceiptPagedRequestCommand, groupId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getReceiptsForGroup(body: ReceiptPagedRequestCommand, groupId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling getReceiptsForGroup.');

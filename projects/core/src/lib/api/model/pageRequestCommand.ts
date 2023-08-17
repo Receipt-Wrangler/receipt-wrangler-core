@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-export interface PagedRequestCommand { 
+export interface PageRequestCommand { 
     /**
      * Page number
      */
@@ -23,9 +23,9 @@ export interface PagedRequestCommand {
      * field to order on
      */
     orderBy?: string;
-    sortDirection?: PagedRequestCommand.SortDirectionEnum;
+    sortDirection?: PageRequestCommand.SortDirectionEnum;
 }
-export namespace PagedRequestCommand {
+export namespace PageRequestCommand {
     export type SortDirectionEnum = 'asc' | 'desc' | '';
     export const SortDirectionEnum = {
         Asc: 'asc' as SortDirectionEnum,
