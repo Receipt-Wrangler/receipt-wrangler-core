@@ -18,8 +18,12 @@ export interface Category {
     createdBy?: number;
     id?: number;
     /**
-     * Name of the category  required: ture
+     * Name of the category
      */
     name?: string;
+    /**
+     * Description of the category
+     */
+    description?: string;
     updatedAt?: string;
 }
