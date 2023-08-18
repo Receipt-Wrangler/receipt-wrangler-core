@@ -143,7 +143,7 @@ export class CategoryService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<PagedData>('post',`${this.basePath}/category/getPagedCatories`,
+        return this.httpClient.request<PagedData>('post',`${this.basePath}/category/getPagedCategories`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
