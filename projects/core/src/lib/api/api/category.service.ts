@@ -58,6 +58,59 @@ export class CategoryService {
 
 
     /**
+     * Create category
+     * This will create a category
+     * @param body Category to create
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createCategory(body: Category, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public createCategory(body: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public createCategory(body: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createCategory(body: Category, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling createCategory.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<any>('post',`${this.basePath}/category/`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Delete category
      * This will delete a category by id
      * @param categoryId Category Id to get
@@ -138,6 +191,54 @@ export class CategoryService {
         ];
 
         return this.httpClient.request<Array<Category>>('get',`${this.basePath}/category/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get category by name
+     * This will return a category by name
+     * @param categoryName Category name to get count of
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCategoryByName(categoryName: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public getCategoryByName(categoryName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public getCategoryByName(categoryName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public getCategoryByName(categoryName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (categoryName === null || categoryName === undefined) {
+            throw new Error('Required parameter categoryName was null or undefined when calling getCategoryByName.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/category/${encodeURIComponent(String(categoryName))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
