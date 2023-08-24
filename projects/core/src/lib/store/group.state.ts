@@ -15,6 +15,7 @@ import {
   SetSelectedGroupId,
   UpdateGroup,
 } from './group.state.actions';
+import { GroupMember } from '../api/model/groupMember';
 
 export interface GroupStateInterface {
   groups: Group[];
@@ -33,6 +34,11 @@ export class GroupState {
   @Selector()
   static groups(state: GroupStateInterface): Group[] {
     return state.groups;
+  }
+
+  @Selector()
+  static allGroupMembers(state: GroupStateInterface): GroupMember[] {
+    return state.groups.map((g) => g.groupMembers).flat();
   }
 
   @Selector()
