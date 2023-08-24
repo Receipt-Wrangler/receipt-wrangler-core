@@ -33,12 +33,14 @@ export class UserState {
 
   static getUserById(userId: string) {
     return createSelector([UserState], (state: UserStateInterface) => {
-      return UserState.findUserById(userId, state.users);
+      return state.users.find((u) => u.id.toString() === userId.toString());
     });
   }
 
-  static findUserById(userId: string, users: User[]): User | undefined {
-    return users.find((u) => u.id.toString() === userId.toString());
+  static findUserById(userId: string) {
+    return createSelector([UserState], (state: UserStateInterface) => {
+      return state.users.find((u) => u.id.toString() === userId.toString());
+    });
   }
 
   static findUserIndexById(userId: string, users: User[]): number {
