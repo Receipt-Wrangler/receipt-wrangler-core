@@ -8,7 +8,7 @@ import {
 } from '@ngxs/store';
 import { User } from '../api/model/user';
 import { AuthStateInterface } from './auth-state.interface';
-import { Logout, SetAuthState } from './auth.state.actions';
+import { Logout, SetAuthState, SetUserPreferences } from './auth.state.actions';
 
 @State<AuthStateInterface>({
   name: 'auth',
@@ -82,6 +82,17 @@ export class AuthState {
       userId: '',
       username: '',
       userRole: undefined,
+      userPreferences: undefined,
+    });
+  }
+
+  @Action(SetUserPreferences)
+  setUserPreferences(
+    { patchState }: StateContext<AuthStateInterface>,
+    payload: SetUserPreferences
+  ) {
+    patchState({
+      userPreferences: payload.userPreferences,
     });
   }
 }

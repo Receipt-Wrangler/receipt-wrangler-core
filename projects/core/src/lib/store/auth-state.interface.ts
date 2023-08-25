@@ -1,3 +1,4 @@
+import { UserPreferences } from '../api/model/userPreferences';
 import { User } from '../api/model/user';
 
 export interface AuthStateInterface {
@@ -7,4 +8,5 @@ export interface AuthStateInterface {
   expirationDate?: string;
   userRole?: User.UserRoleEnum;
   defaultAvatarColor?: string;
+  userPreferences?: UserPreferences;
 }
