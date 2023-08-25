@@ -9,6 +9,7 @@ import {
 import { User } from '../api/model/user';
 import { AuthStateInterface } from './auth-state.interface';
 import { Logout, SetAuthState, SetUserPreferences } from './auth.state.actions';
+import { UserPreferences } from '../api';
 
 @State<AuthStateInterface>({
   name: 'auth',
@@ -16,6 +17,13 @@ import { Logout, SetAuthState, SetUserPreferences } from './auth.state.actions';
 })
 @Injectable()
 export class AuthState {
+  @Selector()
+  static userPreferences(
+    state: AuthStateInterface
+  ): UserPreferences | undefined {
+    return state.userPreferences;
+  }
+
   @Selector()
   static userRole(state: AuthStateInterface): string {
     return state.userRole ?? '';
