@@ -20,4 +20,6 @@ export * from './tag.service';
 import { TagService } from './tag.service';
 export * from './user.service';
 import { UserService } from './user.service';
-export const APIS = [AuthService, CategoryService, CommentService, FeatureConfigService, GroupsService, NotificationsService, ReceiptService, ReceiptImageService, SearchService, TagService, UserService];
+export * from './userPrefrences.service';
+import { UserPrefrencesService } from './userPrefrences.service';
+export const APIS = [AuthService, CategoryService, CommentService, FeatureConfigService, GroupsService, NotificationsService, ReceiptService, ReceiptImageService, SearchService, TagService, UserService, UserPrefrencesService];

@@ -27,5 +27,6 @@ export * from './signUpCommand';
 export * from './tag';
 export * from './updateProfileCommand';
 export * from './user';
+export * from './userPreferences';
 export * from './userRole';
 export * from './userView';
