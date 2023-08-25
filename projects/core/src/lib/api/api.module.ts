@@ -14,7 +14,7 @@ import { ReceiptImageService } from './api/receiptImage.service';
 import { SearchService } from './api/search.service';
 import { TagService } from './api/tag.service';
 import { UserService } from './api/user.service';
-import { UserPrefrencesService } from './api/userPrefrences.service';
+import { UserPreferencesService } from './api/userPreferences.service';
 
 @NgModule({
   imports:      [],
@@ -32,7 +32,7 @@ import { UserPrefrencesService } from './api/userPrefrences.service';
     SearchService,
     TagService,
     UserService,
-    UserPrefrencesService ]
+    UserPreferencesService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {
