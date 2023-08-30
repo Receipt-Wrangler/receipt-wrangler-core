@@ -366,6 +366,64 @@ export class ReceiptService {
     }
 
     /**
+     * Has access to receipt
+     * This will return whether or not the currently logged in user has access to the receipt
+     * @param receiptId 
+     * @param groupRole Role required to have access to receipt
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public hasAccessToReceipt(receiptId: number, groupRole?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public hasAccessToReceipt(receiptId: number, groupRole?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public hasAccessToReceipt(receiptId: number, groupRole?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public hasAccessToReceipt(receiptId: number, groupRole?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (receiptId === null || receiptId === undefined) {
+            throw new Error('Required parameter receiptId was null or undefined when calling hasAccessToReceipt.');
+        }
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (receiptId !== undefined && receiptId !== null) {
+            queryParameters = queryParameters.set('receiptId', <any>receiptId);
+        }
+        if (groupRole !== undefined && groupRole !== null) {
+            queryParameters = queryParameters.set('groupRole', <any>groupRole);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/receipt/hasAccess`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Quick scan a receipt
      * This take an image and use magic fill to fill and save the receipt [SYSTEM USER]
      * @param body Quick scan data
