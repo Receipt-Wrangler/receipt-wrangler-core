@@ -41,9 +41,10 @@ export interface Item {
     updatedAt?: string;
 }
 export namespace Item {
-    export type StatusEnum = 'OPEN' | 'RESOLVED';
+    export type StatusEnum = 'OPEN' | 'RESOLVED' | 'DRAFT';
     export const StatusEnum = {
         OPEN: 'OPEN' as StatusEnum,
-        RESOLVED: 'RESOLVED' as StatusEnum
+        RESOLVED: 'RESOLVED' as StatusEnum,
+        DRAFT: 'DRAFT' as StatusEnum
     };
 }
