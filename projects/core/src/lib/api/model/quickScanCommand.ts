@@ -41,10 +41,11 @@ export interface QuickScanCommand {
     status: QuickScanCommand.StatusEnum;
 }
 export namespace QuickScanCommand {
-    export type StatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED';
+    export type StatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
     export const StatusEnum = {
         OPEN: 'OPEN' as StatusEnum,
         NEEDSATTENTION: 'NEEDS_ATTENTION' as StatusEnum,
-        RESOLVED: 'RESOLVED' as StatusEnum
+        RESOLVED: 'RESOLVED' as StatusEnum,
+        DRAFT: 'DRAFT' as StatusEnum
     };
 }

@@ -33,10 +33,11 @@ export interface UserPreferences {
     quickScanDefaultStatus?: UserPreferences.QuickScanDefaultStatusEnum;
 }
 export namespace UserPreferences {
-    export type QuickScanDefaultStatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED';
+    export type QuickScanDefaultStatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
     export const QuickScanDefaultStatusEnum = {
         OPEN: 'OPEN' as QuickScanDefaultStatusEnum,
         NEEDSATTENTION: 'NEEDS_ATTENTION' as QuickScanDefaultStatusEnum,
-        RESOLVED: 'RESOLVED' as QuickScanDefaultStatusEnum
+        RESOLVED: 'RESOLVED' as QuickScanDefaultStatusEnum,
+        DRAFT: 'DRAFT' as QuickScanDefaultStatusEnum
     };
 }
