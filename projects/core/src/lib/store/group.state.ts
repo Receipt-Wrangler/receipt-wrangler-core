@@ -69,8 +69,8 @@ export class GroupState {
   }
 
   @Selector()
-  static settingsLink(state: GroupStateInterface): string {
-    return `/groups/${state.selectedGroupId}/settings/view`;
+  static settingsLinkBase(state: GroupStateInterface): string {
+    return `/groups/${state.selectedGroupId}/settings`;
   }
 
   static getGroupById(groupId: string) {
