@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { GroupMember } from './groupMember';
+import { GroupSettings } from './groupSettings';
 
 /**
  * Group in the system
@@ -17,6 +18,7 @@ import { GroupMember } from './groupMember';
 export interface Group { 
     createdAt?: string;
     createdBy?: number;
+    groupSettings?: GroupSettings;
     /**
      * Members of the group
      */
