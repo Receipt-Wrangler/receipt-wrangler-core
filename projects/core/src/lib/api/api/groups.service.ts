@@ -18,6 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { Group } from '../model/group';
+import { GroupSettings } from '../model/groupSettings';
+import { UpdateGroupSettingsCommand } from '../model/updateGroupSettingsCommand';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -293,6 +295,65 @@ export class GroupsService {
         }
 
         return this.httpClient.request<any>('put',`${this.basePath}/group/${encodeURIComponent(String(groupId))}`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update group settings
+     * This will update the group settings for a group
+     * @param body Group settings to update
+     * @param groupId Group Id to update
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateGroupSettings(body: UpdateGroupSettingsCommand, groupId: number, observe?: 'body', reportProgress?: boolean): Observable<GroupSettings>;
+    public updateGroupSettings(body: UpdateGroupSettingsCommand, groupId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<GroupSettings>>;
+    public updateGroupSettings(body: UpdateGroupSettingsCommand, groupId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<GroupSettings>>;
+    public updateGroupSettings(body: UpdateGroupSettingsCommand, groupId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling updateGroupSettings.');
+        }
+
+        if (groupId === null || groupId === undefined) {
+            throw new Error('Required parameter groupId was null or undefined when calling updateGroupSettings.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<GroupSettings>('put',`${this.basePath}/group/${encodeURIComponent(String(groupId))}/groupSettings`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
