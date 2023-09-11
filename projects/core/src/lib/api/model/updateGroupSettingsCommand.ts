@@ -13,10 +13,7 @@ import { GroupSettingsEmail } from './groupSettingsEmail';
 import { SubjectLineRegex } from './subjectLineRegex';
 
 export interface UpdateGroupSettingsCommand { 
-    /**
-     * Email to read
-     */
-    emailToRead: string;
+    emailToRead: GroupSettingsEmail;
     /**
      * Subject line regexes
      */

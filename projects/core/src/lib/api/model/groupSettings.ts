@@ -21,10 +21,7 @@ export interface GroupSettings {
      * Group foreign key
      */
     groupId: number;
-    /**
-     * Email to read
-     */
-    emailToRead?: string;
+    emailToRead?: GroupSettingsEmail;
     /**
      * Subject line regexes
      */

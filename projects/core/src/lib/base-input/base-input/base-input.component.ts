@@ -27,6 +27,7 @@ export class BaseInputComponent implements OnInit, BaseInputInterface {
   public ngOnInit(): void {
     this.errorMessages = {
       required: `${this.label} is required.`,
+      email: `${this.label} must be a valid email address.`,
       duplicate: `${this.label} must be unique.`,
       min: `Value must be larger than 0`,
     };
