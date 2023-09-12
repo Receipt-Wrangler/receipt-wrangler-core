@@ -9,7 +9,7 @@ export * from './fileData';
 export * from './group';
 export * from './groupMember';
 export * from './groupSettings';
-export * from './groupSettingsEmail';
+export * from './groupSettingsWhiteListEmail';
 export * from './item';
 export * from './itemStatus';
 export * from './loginCommand';
