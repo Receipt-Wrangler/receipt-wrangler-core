@@ -9,11 +9,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { GroupSettingsEmail } from './groupSettingsEmail';
+import { GroupSettingsWhiteListEmail } from './groupSettingsWhiteListEmail';
 import { SubjectLineRegex } from './subjectLineRegex';
 
 export interface UpdateGroupSettingsCommand { 
-    emailToRead: GroupSettingsEmail;
+    /**
+     * Whether email integration is enabled
+     */
+    emailIntegrationEnabled?: boolean;
+    /**
+     * Email to read
+     */
+    emailToRead: string;
     /**
      * Subject line regexes
      */
@@ -21,5 +28,5 @@ export interface UpdateGroupSettingsCommand {
     /**
      * Email white list
      */
-    emailWhiteList: Array<GroupSettingsEmail>;
+    emailWhiteList: Array<GroupSettingsWhiteListEmail>;
 }
