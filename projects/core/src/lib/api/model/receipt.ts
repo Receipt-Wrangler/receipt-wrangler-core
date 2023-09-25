@@ -68,6 +68,10 @@ export interface Receipt {
      */
     tags?: Array<Tag>;
     updatedAt?: string;
+    /**
+     * Created by string, which is anything that is not a user
+     */
+    createdByString?: string;
 }
 export namespace Receipt {
     export type StatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
