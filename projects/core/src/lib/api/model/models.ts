@@ -28,6 +28,7 @@ export * from './searchResult';
 export * from './signUpCommand';
 export * from './subjectLineRegex';
 export * from './tag';
+export * from './tagView';
 export * from './updateGroupSettingsCommand';
 export * from './updateProfileCommand';
 export * from './user';

@@ -143,7 +143,7 @@ export class TagService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<PagedData>('post',`${this.basePath}/tags/getPagedTags`,
+        return this.httpClient.request<PagedData>('post',`${this.basePath}/tag/getPagedTags`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
