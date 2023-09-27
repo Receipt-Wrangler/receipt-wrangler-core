@@ -201,19 +201,19 @@ export class CategoryService {
     }
 
     /**
-     * Get category by name
-     * This will return a category by name
+     * Get category count by name
+     * This will return a count of categories with the same name
      * @param categoryName Category name to get count of
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCategoryByName(categoryName: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public getCategoryByName(categoryName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public getCategoryByName(categoryName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public getCategoryByName(categoryName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getCategoryCountByName(categoryName: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public getCategoryCountByName(categoryName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public getCategoryCountByName(categoryName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public getCategoryCountByName(categoryName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (categoryName === null || categoryName === undefined) {
-            throw new Error('Required parameter categoryName was null or undefined when calling getCategoryByName.');
+            throw new Error('Required parameter categoryName was null or undefined when calling getCategoryCountByName.');
         }
 
         let headers = this.defaultHeaders;
