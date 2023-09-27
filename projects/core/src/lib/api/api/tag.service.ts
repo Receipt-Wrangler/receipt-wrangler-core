@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { PagedData } from '../model/pagedData';
 import { PagedRequestCommand } from '../model/pagedRequestCommand';
 import { Tag } from '../model/tag';
+import { UpsertTagCommand } from '../model/upsertTagCommand';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -56,6 +57,53 @@ export class TagService {
         return false;
     }
 
+
+    /**
+     * Delete tag
+     * This will delete a tag by id
+     * @param tagId Id of tag to get
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteTag(tagId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteTag(tagId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteTag(tagId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteTag(tagId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (tagId === null || tagId === undefined) {
+            throw new Error('Required parameter tagId was null or undefined when calling deleteTag.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('delete',`${this.basePath}/tag/${encodeURIComponent(String(tagId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * Get all tags
@@ -144,6 +192,64 @@ export class TagService {
         }
 
         return this.httpClient.request<PagedData>('post',`${this.basePath}/tag/getPagedTags`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update tag
+     * This will update a tag
+     * @param body Tag to update
+     * @param tagId Id of tag to get
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateTag(body: UpsertTagCommand, tagId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling updateTag.');
+        }
+
+        if (tagId === null || tagId === undefined) {
+            throw new Error('Required parameter tagId was null or undefined when calling updateTag.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<any>('put',`${this.basePath}/tag/${encodeURIComponent(String(tagId))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
