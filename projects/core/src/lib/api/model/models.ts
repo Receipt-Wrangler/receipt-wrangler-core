@@ -31,6 +31,7 @@ export * from './tag';
 export * from './tagView';
 export * from './updateGroupSettingsCommand';
 export * from './updateProfileCommand';
+export * from './upsertTagCommand';
 export * from './user';
 export * from './userPreferences';
 export * from './userRole';
