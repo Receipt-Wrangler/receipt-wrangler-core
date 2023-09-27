@@ -203,6 +203,54 @@ export class TagService {
     }
 
     /**
+     * Get tag count by name
+     * This will count of names with the same name
+     * @param tagName Tag name to get count of
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getTagCountByName(tagName: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public getTagCountByName(tagName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public getTagCountByName(tagName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public getTagCountByName(tagName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (tagName === null || tagName === undefined) {
+            throw new Error('Required parameter tagName was null or undefined when calling getTagCountByName.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/tag/${encodeURIComponent(String(tagName))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Update tag
      * This will update a tag
      * @param body Tag to update
