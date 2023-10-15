@@ -20,7 +20,6 @@ import { Observable }                                        from 'rxjs';
 import { EncodedImage } from '../model/encodedImage';
 import { MagicFillCommand } from '../model/magicFillCommand';
 import { Receipt } from '../model/receipt';
-import { ReceiptFileUploadCommand } from '../model/receiptFileUploadCommand';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -215,17 +214,22 @@ export class ReceiptImageService {
     /**
      * Uploads a receipt image
      * This will upload a receipt image, [SYSTEM USER]
-     * @param body Receipt image to upload
+     * @param file 
+     * @param receiptId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadReceiptImage(body: ReceiptFileUploadCommand, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public uploadReceiptImage(body: ReceiptFileUploadCommand, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public uploadReceiptImage(body: ReceiptFileUploadCommand, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public uploadReceiptImage(body: ReceiptFileUploadCommand, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling uploadReceiptImage.');
+        if (file === null || file === undefined) {
+            throw new Error('Required parameter file was null or undefined when calling uploadReceiptImage.');
+        }
+
+        if (receiptId === null || receiptId === undefined) {
+            throw new Error('Required parameter receiptId was null or undefined when calling uploadReceiptImage.');
         }
 
         let headers = this.defaultHeaders;
@@ -247,16 +251,33 @@ export class ReceiptImageService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'multipart-form-data'
+            'multipart/form-data'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (file !== undefined) {
+            formParams = formParams.append('file', <any>file) as any || formParams;
+        }
+        if (receiptId !== undefined) {
+            formParams = formParams.append('receiptId', <any>receiptId) as any || formParams;
         }
 
         return this.httpClient.request<any>('post',`${this.basePath}/receiptImage/`,
             {
-                body: body,
+                body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
