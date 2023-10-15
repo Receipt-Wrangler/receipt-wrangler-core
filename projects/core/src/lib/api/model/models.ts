@@ -21,6 +21,7 @@ export * from './pagedRequestCommand';
 export * from './pagedRequestField';
 export * from './quickScanCommand';
 export * from './receipt';
+export * from './receiptFileUploadCommand';
 export * from './receiptPagedRequestCommand';
 export * from './receiptPagedRequestFilter';
 export * from './resetPasswordCommand';
