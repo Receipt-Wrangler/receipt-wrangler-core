@@ -17,7 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { EncodedImage } from '../model/encodedImage';
+import { FileDataView } from '../model/fileDataView';
 import { MagicFillCommand } from '../model/magicFillCommand';
 import { Receipt } from '../model/receipt';
 
@@ -111,9 +111,9 @@ export class ReceiptImageService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getReceiptImageById(receiptImageId: number, observe?: 'body', reportProgress?: boolean): Observable<EncodedImage>;
-    public getReceiptImageById(receiptImageId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EncodedImage>>;
-    public getReceiptImageById(receiptImageId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EncodedImage>>;
+    public getReceiptImageById(receiptImageId: number, observe?: 'body', reportProgress?: boolean): Observable<FileDataView>;
+    public getReceiptImageById(receiptImageId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileDataView>>;
+    public getReceiptImageById(receiptImageId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileDataView>>;
     public getReceiptImageById(receiptImageId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (receiptImageId === null || receiptImageId === undefined) {
@@ -142,7 +142,7 @@ export class ReceiptImageService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<EncodedImage>('get',`${this.basePath}/receiptImage/${encodeURIComponent(String(receiptImageId))}`,
+        return this.httpClient.request<FileDataView>('get',`${this.basePath}/receiptImage/${encodeURIComponent(String(receiptImageId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
