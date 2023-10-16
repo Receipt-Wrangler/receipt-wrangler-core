@@ -219,9 +219,9 @@ export class ReceiptImageService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'body', reportProgress?: boolean): Observable<FileDataView>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileDataView>>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileDataView>>;
     public uploadReceiptImageForm(file: Blob, receiptId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (file === null || file === undefined) {
@@ -243,6 +243,7 @@ export class ReceiptImageService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -275,7 +276,7 @@ export class ReceiptImageService {
             formParams = formParams.append('receiptId', <any>receiptId) as any || formParams;
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/receiptImage/`,
+        return this.httpClient.request<FileDataView>('post',`${this.basePath}/receiptImage/`,
             {
                 body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,
