@@ -18,7 +18,6 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { FileDataView } from '../model/fileDataView';
-import { MagicFillCommand } from '../model/magicFillCommand';
 import { Receipt } from '../model/receipt';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -155,15 +154,15 @@ export class ReceiptImageService {
     /**
      * Reads a receipt image and returns the parsed results
      * This will parse and read a receipt image, [SYSTEM USER]
-     * @param body 
+     * @param file 
      * @param receiptImageId Id of receipt image to perform magic fill on
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
-    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
-    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
-    public magicFillReceipt(body?: MagicFillCommand, receiptImageId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public magicFillReceiptForm(file?: Blob, receiptImageId?: number, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
+    public magicFillReceiptForm(file?: Blob, receiptImageId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
+    public magicFillReceiptForm(file?: Blob, receiptImageId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
+    public magicFillReceiptForm(file?: Blob, receiptImageId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -192,16 +191,30 @@ export class ReceiptImageService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/json'
+            'multipart/form-data'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (file !== undefined) {
+            formParams = formParams.append('file', <any>file) as any || formParams;
         }
 
         return this.httpClient.request<Receipt>('post',`${this.basePath}/receiptImage/magicFill`,
             {
-                body: body,
+                body: convertFormParamsToString ? formParams.toString() : formParams,
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
