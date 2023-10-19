@@ -11,22 +11,7 @@
  */
 
 export interface QuickScanCommand { 
-    /**
-     * Image data
-     */
-    imageData: Array<number>;
-    /**
-     * Name of file
-     */
-    name: string;
-    /**
-     * Type of file
-     */
-    fileType: string;
-    /**
-     * Size of file
-     */
-    size: number;
+    file: Blob;
     /**
      * Group foreign key
      */
@@ -34,7 +19,7 @@ export interface QuickScanCommand {
     /**
      * User foreign key
      */
-    paidByUserId?: number;
+    paidByUserId: number;
     /**
      * Status of quick scanned receipt
      */
