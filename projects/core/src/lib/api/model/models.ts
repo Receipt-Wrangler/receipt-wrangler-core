@@ -3,6 +3,7 @@ export * from './bulkStatusUpdateCommand';
 export * from './category';
 export * from './categoryView';
 export * from './comment';
+export * from './encodedImage';
 export * from './featureConfig';
 export * from './fileData';
 export * from './fileDataView';
