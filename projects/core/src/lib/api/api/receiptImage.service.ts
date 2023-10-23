@@ -113,7 +113,7 @@ export class ReceiptImageService {
             formParams = formParams.append('file', <any>file) as any || formParams;
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/receiptImage/convertToJpg/`,
+        return this.httpClient.request<string>('post',`${this.basePath}/receiptImage/convertToJpg`,
             {
                 body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,
