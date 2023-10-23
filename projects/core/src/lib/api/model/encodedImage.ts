@@ -11,5 +11,8 @@
  */
 
 export interface EncodedImage { 
-    encodedImage: string;
+    /**
+     * base64 encoded jpg
+     */
+    encodedImage?: string;
 }

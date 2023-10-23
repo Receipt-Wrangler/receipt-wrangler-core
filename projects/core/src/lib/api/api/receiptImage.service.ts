@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { EncodedImage } from '../model/encodedImage';
 import { FileDataView } from '../model/fileDataView';
 import { Receipt } from '../model/receipt';
 
@@ -63,9 +64,9 @@ export class ReceiptImageService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public convertToJpgForm(file: Blob, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public convertToJpgForm(file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public convertToJpgForm(file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public convertToJpgForm(file: Blob, observe?: 'body', reportProgress?: boolean): Observable<EncodedImage>;
+    public convertToJpgForm(file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EncodedImage>>;
+    public convertToJpgForm(file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EncodedImage>>;
     public convertToJpgForm(file: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (file === null || file === undefined) {
@@ -83,7 +84,7 @@ export class ReceiptImageService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'text/plain'
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -113,7 +114,7 @@ export class ReceiptImageService {
             formParams = formParams.append('file', <any>file) as any || formParams;
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/receiptImage/convertToJpg`,
+        return this.httpClient.request<EncodedImage>('post',`${this.basePath}/receiptImage/convertToJpg`,
             {
                 body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,
