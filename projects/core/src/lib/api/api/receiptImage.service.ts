@@ -57,6 +57,74 @@ export class ReceiptImageService {
 
 
     /**
+     * Converts a receipt image to jpg
+     * This will convert a receipt image to jpg, [SYSTEM USER]
+     * @param file 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public convertToJpgForm(file: Blob, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public convertToJpgForm(file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public convertToJpgForm(file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public convertToJpgForm(file: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (file === null || file === undefined) {
+            throw new Error('Required parameter file was null or undefined when calling convertToJpg.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (file !== undefined) {
+            formParams = formParams.append('file', <any>file) as any || formParams;
+        }
+
+        return this.httpClient.request<string>('post',`${this.basePath}/receiptImage/convertToJpg/`,
+            {
+                body: convertFormParamsToString ? formParams.toString() : formParams,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Delete receipt image
      * This will delete a receipt image by id [SYSTEM USER]
      * @param receiptImageId Id of receipt image to get
@@ -229,13 +297,14 @@ export class ReceiptImageService {
      * This will upload a receipt image, [SYSTEM USER]
      * @param file 
      * @param receiptId 
+     * @param encodedImage 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'body', reportProgress?: boolean): Observable<FileDataView>;
-    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileDataView>>;
-    public uploadReceiptImageForm(file: Blob, receiptId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileDataView>>;
-    public uploadReceiptImageForm(file: Blob, receiptId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public uploadReceiptImageForm(file: Blob, receiptId: number, encodedImage: string, observe?: 'body', reportProgress?: boolean): Observable<FileDataView>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, encodedImage: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileDataView>>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, encodedImage: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileDataView>>;
+    public uploadReceiptImageForm(file: Blob, receiptId: number, encodedImage: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (file === null || file === undefined) {
             throw new Error('Required parameter file was null or undefined when calling uploadReceiptImage.');
@@ -243,6 +312,10 @@ export class ReceiptImageService {
 
         if (receiptId === null || receiptId === undefined) {
             throw new Error('Required parameter receiptId was null or undefined when calling uploadReceiptImage.');
+        }
+
+        if (encodedImage === null || encodedImage === undefined) {
+            throw new Error('Required parameter encodedImage was null or undefined when calling uploadReceiptImage.');
         }
 
         let headers = this.defaultHeaders;
@@ -287,6 +360,9 @@ export class ReceiptImageService {
         }
         if (receiptId !== undefined) {
             formParams = formParams.append('receiptId', <any>receiptId) as any || formParams;
+        }
+        if (encodedImage !== undefined) {
+            formParams = formParams.append('encodedImage', <any>encodedImage) as any || formParams;
         }
 
         return this.httpClient.request<FileDataView>('post',`${this.basePath}/receiptImage/`,
