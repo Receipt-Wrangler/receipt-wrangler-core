@@ -22,6 +22,7 @@ export * from './pagedRequestField';
 export * from './quickScanCommand';
 export * from './receipt';
 export * from './receiptFileUploadCommand';
+export * from './receiptImageConvertToJpgBody';
 export * from './receiptImageMagicFillBody';
 export * from './receiptPagedRequestCommand';
 export * from './receiptPagedRequestFilter';

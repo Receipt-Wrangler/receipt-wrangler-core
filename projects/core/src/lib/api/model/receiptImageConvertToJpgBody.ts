@@ -10,14 +10,9 @@
  * Do not edit the class manually.
  */
 
-export interface ReceiptFileUploadCommand { 
+export interface ReceiptImageConvertToJpgBody { 
+    /**
+     * Base64 encoded image
+     */
     file: Blob;
-    /**
-     * Receipt foreign key
-     */
-    receiptId: number;
-    /**
-     * Base64 encoded image for file types that aren't viewable natively in the browser, such as PDFs
-     */
-    encodedImage?: string;
 }
