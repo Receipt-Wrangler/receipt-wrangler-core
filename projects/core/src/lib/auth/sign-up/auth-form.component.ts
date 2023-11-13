@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -22,6 +29,10 @@ import { UserValidators } from '../../validators/user-validators';
 })
 export class AuthForm implements OnInit {
   @Input() public additionalFieldsTemplate?: TemplateRef<any>;
+
+  @Input() public emitSubmit: boolean = false;
+
+  @Output() public submitted: EventEmitter<void> = new EventEmitter<void>();
 
   public form: FormGroup = new FormGroup({});
   public isSignUp: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
@@ -102,38 +113,44 @@ export class AuthForm implements OnInit {
   }
 
   public submit(): void {
-    const isValid = this.form.valid;
-    const isSignUp = this.isSignUp.getValue();
+    if (this.emitSubmit) {
+      this.submitted.emit();
+    } else {
+      const isValid = this.form.valid;
+      const isSignUp = this.isSignUp.getValue();
 
-    if (isValid && isSignUp) {
-      this.authService
-        .signUp(this.form.value)
-        .pipe(
-          tap(() => {
-            this.snackbarService.success('User successfully signed up');
-          }),
-          catchError((err) =>
-            of(
-              this.snackbarService.error(err.error['username'] ?? err['errMsg'])
+      if (isValid && isSignUp) {
+        this.authService
+          .signUp(this.form.value)
+          .pipe(
+            tap(() => {
+              this.snackbarService.success('User successfully signed up');
+            }),
+            catchError((err) =>
+              of(
+                this.snackbarService.error(
+                  err.error['username'] ?? err['errMsg']
+                )
+              )
             )
           )
-        )
-        .subscribe();
-    } else if (isValid && !isSignUp) {
-      this.authService
-        .login(this.form.value)
-        .pipe(
-          tap(() => {
-            this.snackbarService.success('Successfully logged in');
-          }),
-          switchMap(() => this.appInitService.getAppData()),
-          tap(() =>
-            this.router.navigate([
-              this.store.selectSnapshot(GroupState.dashboardLink),
-            ])
+          .subscribe();
+      } else if (isValid && !isSignUp) {
+        this.authService
+          .login(this.form.value)
+          .pipe(
+            tap(() => {
+              this.snackbarService.success('Successfully logged in');
+            }),
+            switchMap(() => this.appInitService.getAppData()),
+            tap(() =>
+              this.router.navigate([
+                this.store.selectSnapshot(GroupState.dashboardLink),
+              ])
+            )
           )
-        )
-        .subscribe();
+          .subscribe();
+      }
     }
   }
 }
