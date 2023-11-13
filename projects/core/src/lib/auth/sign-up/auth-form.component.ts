@@ -1,15 +1,18 @@
-import { BehaviorSubject, catchError, of, switchMap, tap } from "rxjs";
-
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Store } from "@ngxs/store";
-
-import { AuthService } from "../../api/api/auth.service";
-import { AppInitService } from "../../services/app-init.service";
-import { SnackbarService } from "../../services/snackbar.service";
-import { GroupState } from "../../store/group.state";
-import { UserValidators } from "../../validators/user-validators";
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { BehaviorSubject, catchError, of, switchMap, tap } from 'rxjs';
+import { AuthService } from '../../api/api/auth.service';
+import { AppInitService } from '../../services/app-init.service';
+import { SnackbarService } from '../../services/snackbar.service';
+import { GroupState } from '../../store/group.state';
+import { UserValidators } from '../../validators/user-validators';
 
 @Component({
   selector: 'app-auth-form',
@@ -18,6 +21,8 @@ import { UserValidators } from "../../validators/user-validators";
   providers: [UserValidators],
 })
 export class AuthForm implements OnInit {
+  @Input() public additionalFieldsTemplate?: TemplateRef<any>;
+
   public form: FormGroup = new FormGroup({});
   public isSignUp: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
