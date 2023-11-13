@@ -19,5 +19,6 @@ import { AuthForm } from './sign-up/auth-form.component';
     PipesModule,
     ReactiveFormsModule,
   ],
+  exports: [AuthForm],
 })
 export class AuthModule {}

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FeatureGuard } from '../guards/feature.guard';
 import { AuthForm } from './sign-up/auth-form.component';
 
-const routes: Routes = [
+export const authRoutes: Routes = [
   {
     path: 'sign-up',
     component: AuthForm,
@@ -20,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(authRoutes)],
   exports: [RouterModule],
 })
 export class AuthRoutingModule {}
