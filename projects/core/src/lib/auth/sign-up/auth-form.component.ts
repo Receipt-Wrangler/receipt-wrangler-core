@@ -14,12 +14,13 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { BehaviorSubject, catchError, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, switchMap, take, tap } from 'rxjs';
 import { AuthService } from '../../api/api/auth.service';
 import { AppInitService } from '../../services/app-init.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { GroupState } from '../../store/group.state';
 import { UserValidators } from '../../validators/user-validators';
+import { AuthFormUtil } from './auth-form.util';
 
 @Component({
   selector: 'app-auth-form',
@@ -44,12 +45,9 @@ export class AuthForm implements OnInit {
   public secondaryButtonRouterLink: string[] = [];
 
   constructor(
-    private appInitService: AppInitService,
-    private authService: AuthService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private snackbarService: SnackbarService,
     private store: Store,
     private userValidators: UserValidators
   ) {}
@@ -108,49 +106,22 @@ export class AuthForm implements OnInit {
       username: ['', [Validators.required]],
       password: ['', Validators.required],
     });
-    if (this.isSignUp.getValue()) {
-    }
   }
 
   public submit(): void {
     if (this.emitSubmit) {
       this.submitted.emit();
     } else {
-      const isValid = this.form.valid;
       const isSignUp = this.isSignUp.getValue();
 
-      if (isValid && isSignUp) {
-        this.authService
-          .signUp(this.form.value)
-          .pipe(
-            tap(() => {
-              this.snackbarService.success('User successfully signed up');
-            }),
-            catchError((err) =>
-              of(
-                this.snackbarService.error(
-                  err.error['username'] ?? err['errMsg']
-                )
-              )
-            )
-          )
-          .subscribe();
-      } else if (isValid && !isSignUp) {
-        this.authService
-          .login(this.form.value)
-          .pipe(
-            tap(() => {
-              this.snackbarService.success('Successfully logged in');
-            }),
-            switchMap(() => this.appInitService.getAppData()),
-            tap(() =>
-              this.router.navigate([
-                this.store.selectSnapshot(GroupState.dashboardLink),
-              ])
-            )
-          )
-          .subscribe();
-      }
+      AuthFormUtil.getSubmitObservable(this.form, isSignUp).pipe(
+        take(1),
+        tap(() => {
+          this.router.navigate([
+            this.store.selectSnapshot(GroupState.dashboardLink),
+          ]);
+        })
+      );
     }
   }
 }
