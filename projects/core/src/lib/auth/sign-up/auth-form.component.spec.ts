@@ -17,6 +17,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { AuthForm } from './auth-form.component';
 import { AuthState } from '../../store/auth.state';
 import { FeatureConfigState } from '../../store/feature-config.state';
+import { AuthFormUtil } from './auth-form.util';
 
 describe('AuthForm', () => {
   let component: AuthForm;
@@ -39,10 +40,11 @@ describe('AuthForm', () => {
       providers: [
         SnackbarService,
         AppInitService,
+        AuthFormUtil,
         {
           provide: ActivatedRoute,
           useValue: {
-            data: of(),
+            data: of(undefined),
           },
         },
       ],
