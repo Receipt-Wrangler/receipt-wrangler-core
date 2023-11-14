@@ -14,10 +14,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { BehaviorSubject, catchError, of, switchMap, take, tap } from 'rxjs';
-import { AuthService } from '../../api/api/auth.service';
-import { AppInitService } from '../../services/app-init.service';
-import { SnackbarService } from '../../services/snackbar.service';
+import { BehaviorSubject, take, tap } from 'rxjs';
 import { GroupState } from '../../store/group.state';
 import { UserValidators } from '../../validators/user-validators';
 import { AuthFormUtil } from './auth-form.util';
@@ -49,7 +46,8 @@ export class AuthForm implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store,
-    private userValidators: UserValidators
+    private userValidators: UserValidators,
+    private authFormUtil: AuthFormUtil
   ) {}
 
   public ngOnInit(): void {
@@ -114,14 +112,17 @@ export class AuthForm implements OnInit {
     } else {
       const isSignUp = this.isSignUp.getValue();
 
-      AuthFormUtil.getSubmitObservable(this.form, isSignUp).pipe(
-        take(1),
-        tap(() => {
-          this.router.navigate([
-            this.store.selectSnapshot(GroupState.dashboardLink),
-          ]);
-        })
-      );
+      this.authFormUtil
+        .getSubmitObservable(this.form, isSignUp)
+        .pipe(
+          take(1),
+          tap(() => {
+            this.router.navigate([
+              this.store.selectSnapshot(GroupState.dashboardLink),
+            ]);
+          })
+        )
+        .subscribe();
     }
   }
 }
