@@ -9,7 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Widget } from './widget';
+import { UpsertWidgetCommand } from './upsertWidgetCommand';
 
 export interface UpsertDashboardCommand { 
     /**
@@ -19,5 +19,5 @@ export interface UpsertDashboardCommand {
     /**
      * Widgets associated to dashboard
      */
-    widgets?: Array<Widget>;
+    widgets?: Array<UpsertWidgetCommand>;
 }

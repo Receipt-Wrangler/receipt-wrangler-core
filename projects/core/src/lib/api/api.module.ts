@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './api/auth.service';
 import { CategoryService } from './api/category.service';
 import { CommentService } from './api/comment.service';
+import { DashboardService } from './api/dashboard.service';
 import { FeatureConfigService } from './api/featureConfig.service';
 import { GroupsService } from './api/groups.service';
 import { NotificationsService } from './api/notifications.service';
@@ -24,6 +25,7 @@ import { UserPreferencesService } from './api/userPreferences.service';
     AuthService,
     CategoryService,
     CommentService,
+    DashboardService,
     FeatureConfigService,
     GroupsService,
     NotificationsService,

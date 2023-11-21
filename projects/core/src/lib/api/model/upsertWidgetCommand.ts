@@ -10,32 +10,17 @@
  * Do not edit the class manually.
  */
 
-/**
- * Widget related to a user's dashboard
- */
-export interface Widget { 
-    createdAt?: string;
-    createdBy?: number;
-    id: number;
+export interface UpsertWidgetCommand { 
     /**
      * Widget name
      */
     name?: string;
     /**
-     * Dashboard foreign key
-     */
-    dashboardId: number;
-    updatedAt?: string;
-    /**
      * Type of widget
      */
-    widgetType?: Widget.WidgetTypeEnum;
-    /**
-     * Configuration of widget
-     */
-    configuration?: string;
+    widgetType: UpsertWidgetCommand.WidgetTypeEnum;
 }
-export namespace Widget {
+export namespace UpsertWidgetCommand {
     export type WidgetTypeEnum = 'GROUP_SUMMARY';
     export const WidgetTypeEnum = {
         GROUPSUMMARY: 'GROUP_SUMMARY' as WidgetTypeEnum
