@@ -38,6 +38,7 @@ export * from './updateGroupSettingsCommand';
 export * from './updateProfileCommand';
 export * from './upsertDashboardCommand';
 export * from './upsertTagCommand';
+export * from './upsertWidgetCommand';
 export * from './user';
 export * from './userPreferences';
 export * from './userRole';
