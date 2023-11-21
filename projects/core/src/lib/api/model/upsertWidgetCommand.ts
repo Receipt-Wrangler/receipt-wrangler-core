@@ -12,7 +12,7 @@
 
 export interface UpsertWidgetCommand { 
     /**
-     * Dashboard name
+     * Widget name
      */
     name?: string;
     /**
