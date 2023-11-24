@@ -17,6 +17,10 @@ export interface UpsertDashboardCommand {
      */
     name: string;
     /**
+     * Group foreign key
+     */
+    groupId: string;
+    /**
      * Widgets associated to dashboard
      */
     widgets?: Array<UpsertWidgetCommand>;
