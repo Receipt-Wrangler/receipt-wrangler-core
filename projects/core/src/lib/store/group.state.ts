@@ -12,6 +12,7 @@ import {
   AddGroup,
   RemoveGroup,
   SetGroups,
+  SetSelectedDashboardId,
   SetSelectedGroupId,
   UpdateGroup,
 } from './group.state.actions';
@@ -20,6 +21,7 @@ import { GroupMember } from '../api/model/groupMember';
 export interface GroupStateInterface {
   groups: Group[];
   selectedGroupId: string;
+  selectedDashboardId: string;
 }
 
 @State<GroupStateInterface>({
@@ -27,6 +29,7 @@ export interface GroupStateInterface {
   defaults: {
     groups: [],
     selectedGroupId: '',
+    selectedDashboardId: '',
   },
 })
 @Injectable()
@@ -51,6 +54,11 @@ export class GroupState {
     return state.groups.filter(
       (g) => g.id.toString() !== state.selectedGroupId
     );
+  }
+
+  @Selector()
+  static selectedDashboardId(state: GroupStateInterface): string {
+    return state.selectedDashboardId;
   }
 
   @Selector()
@@ -143,12 +151,24 @@ export class GroupState {
     }
   }
 
+  @Action(SetSelectedDashboardId)
+  setSelectedDashboardId(
+    { getState, patchState }: StateContext<GroupStateInterface>,
+    payload: SetSelectedDashboardId
+  ) {
+    patchState({
+      selectedDashboardId: payload.dashboardId,
+    });
+  }
+
   @Action(SetSelectedGroupId)
   setSelectedGroupId(
     { getState, patchState }: StateContext<GroupStateInterface>,
     payload: SetSelectedGroupId
   ) {
     let groupId = '';
+    let dashboardId = '';
+
     if (payload?.groupId) {
       groupId = payload.groupId;
     } else {
@@ -156,8 +176,13 @@ export class GroupState {
       groupId = groups[0].id.toString();
     }
 
+    if (payload.groupId === getState().selectedGroupId) {
+      dashboardId = getState().selectedDashboardId;
+    }
+
     patchState({
       selectedGroupId: groupId,
+      selectedDashboardId: dashboardId,
     });
   }
 }
