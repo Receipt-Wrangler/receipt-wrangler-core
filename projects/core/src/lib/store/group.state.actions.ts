@@ -20,6 +20,11 @@ export class UpdateGroup {
   constructor(public group: Group) {}
 }
 
+export class SetSelectedDashboardId {
+  static readonly type = '[Group] Set Selected Dashboard Id';
+  constructor(public dashboardId?: string) {}
+}
+
 export class SetSelectedGroupId {
   static readonly type = '[Group] Set Selected Group Id';
   constructor(public groupId?: string) {}
