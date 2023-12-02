@@ -59,13 +59,6 @@ export class AppInitService {
     const groupsCall = this.groupsService.getGroupsForuser().pipe(
       take(1),
       tap((groups) => {
-        groups.unshift({
-          id: 'all' as any,
-          name: 'All',
-          isDefault: false,
-          groupMembers: [],
-          status: Group.StatusEnum.ACTIVE,
-        });
         this.store.dispatch(new SetGroups(groups));
         const groupId = this.store.selectSnapshot(GroupState.selectedGroupId);
         if (!groupId) {

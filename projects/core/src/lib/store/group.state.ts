@@ -7,7 +7,6 @@ import {
   StateContext,
 } from '@ngxs/store';
 import { Group } from '../api/model/group';
-import { ALL_GROUP } from '../constants/group.constant';
 import {
   AddGroup,
   RemoveGroup,
@@ -46,7 +45,7 @@ export class GroupState {
 
   @Selector()
   static groupsWithoutAll(state: GroupStateInterface): Group[] {
-    return state.groups.filter((g) => (g.id as any) !== ALL_GROUP);
+    return state.groups.filter((g) => !g.isAllGroup);
   }
 
   @Selector()
