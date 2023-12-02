@@ -32,6 +32,10 @@ export interface Group {
      * Name of the group
      */
     name: string;
+    /**
+     * Is all group for user
+     */
+    isAllGroup: boolean;
     status: Group.StatusEnum;
     updatedAt?: string;
 }

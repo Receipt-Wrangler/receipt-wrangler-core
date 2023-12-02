@@ -71,6 +71,7 @@ export class GroupState {
     return `/receipts/group/${state.selectedGroupId}`;
   }
 
+  // TODO: needs to be fixed
   @Selector()
   static dashboardLink(state: GroupStateInterface): string {
     return `/dashboard/group/${state.selectedGroupId}`;
