@@ -36,8 +36,9 @@ export interface Widget {
     configuration?: string;
 }
 export namespace Widget {
-    export type WidgetTypeEnum = 'GROUP_SUMMARY';
+    export type WidgetTypeEnum = 'GROUP_SUMMARY' | 'FILTERED_RECEIPTS';
     export const WidgetTypeEnum = {
-        GROUPSUMMARY: 'GROUP_SUMMARY' as WidgetTypeEnum
+        GROUPSUMMARY: 'GROUP_SUMMARY' as WidgetTypeEnum,
+        FILTEREDRECEIPTS: 'FILTERED_RECEIPTS' as WidgetTypeEnum
     };
 }
