@@ -22,7 +22,7 @@ export interface UpsertWidgetCommand {
     /**
      * Configuration of widget
      */
-    configuration?: string;
+    configuration?: { [key: string]: any; };
 }
 export namespace UpsertWidgetCommand {
     export type WidgetTypeEnum = 'GROUP_SUMMARY' | 'FILTERED_RECEIPTS';

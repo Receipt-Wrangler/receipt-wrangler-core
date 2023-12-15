@@ -33,7 +33,7 @@ export interface Widget {
     /**
      * Configuration of widget
      */
-    configuration?: string;
+    configuration?: { [key: string]: any; };
 }
 export namespace Widget {
     export type WidgetTypeEnum = 'GROUP_SUMMARY' | 'FILTERED_RECEIPTS';
