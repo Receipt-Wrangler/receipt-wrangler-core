@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { finalize, forkJoin, Observable, switchMap, take, tap } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  forkJoin,
+  Observable,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import {
   AuthService,
   FeatureConfigService,
@@ -42,9 +50,13 @@ export class AppInitService {
           switchMap((config) =>
             this.store.dispatch(new SetFeatureConfig(config))
           ),
+          catchError((err) => {
+            resolve(false);
+            return err;
+          }),
           switchMap(() => this.authService.getNewRefreshToken()),
           switchMap(() => this.getAppData()),
-          finalize(() => resolve(true))
+          tap(() => resolve(true))
         )
         .subscribe();
     });
