@@ -11,7 +11,11 @@ import { UserService } from '../api/api/user.service';
 @Injectable()
 export class UserValidators {
   constructor(private userService: UserService) {}
-  uniqueUsername(threshold: number, originalValue: string): AsyncValidatorFn {
+
+  public uniqueUsername(
+    threshold: number,
+    originalValue: string
+  ): AsyncValidatorFn {
     return (
       control: AbstractControl
     ):
