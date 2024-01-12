@@ -42,12 +42,12 @@ export class AuthForm implements OnInit {
   public secondaryButtonRouterLink: string[] = [];
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private store: Store,
-    private userValidators: UserValidators,
-    private authFormUtil: AuthFormUtil
+    protected authFormUtil: AuthFormUtil,
+    protected formBuilder: FormBuilder,
+    protected route: ActivatedRoute,
+    protected router: Router,
+    protected store: Store,
+    protected userValidators: UserValidators
   ) {}
 
   public ngOnInit(): void {
