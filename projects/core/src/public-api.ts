@@ -10,6 +10,7 @@ export * from './lib/constants';
 export * from './lib/directives';
 export * from './lib/guards';
 export * from './lib/input';
+export * from './lib/interfaces';
 export * from './lib/pipes';
 export * from './lib/services';
 export * from './lib/store';

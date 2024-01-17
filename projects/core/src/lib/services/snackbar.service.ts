@@ -8,11 +8,12 @@ import {
   DEFAULT_SNACKBAR_ACTION,
   DEFAULT_SNACKBAR_CONFIG,
 } from '../constants/snackbar.constant';
+import { SnackbarServiceInterface } from '../interfaces/snackbar.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SnackbarService {
+export class SnackbarService implements SnackbarServiceInterface {
   constructor(private snackbar: MatSnackBar) {}
 
   public error(message: string): void {
