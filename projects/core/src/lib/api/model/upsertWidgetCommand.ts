@@ -18,16 +18,9 @@ export interface UpsertWidgetCommand {
     /**
      * Type of widget
      */
-    widgetType: UpsertWidgetCommand.WidgetTypeEnum;
+    widgetType: string;
     /**
      * Configuration of widget
      */
     configuration?: { [key: string]: any; };
-}
-export namespace UpsertWidgetCommand {
-    export type WidgetTypeEnum = 'GROUP_SUMMARY' | 'FILTERED_RECEIPTS';
-    export const WidgetTypeEnum = {
-        GROUPSUMMARY: 'GROUP_SUMMARY' as WidgetTypeEnum,
-        FILTEREDRECEIPTS: 'FILTERED_RECEIPTS' as WidgetTypeEnum
-    };
 }

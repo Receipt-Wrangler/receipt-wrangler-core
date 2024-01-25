@@ -23,13 +23,5 @@ export interface PagedRequestCommand {
      * field to order on
      */
     orderBy?: string;
-    sortDirection?: PagedRequestCommand.SortDirectionEnum;
-}
-export namespace PagedRequestCommand {
-    export type SortDirectionEnum = 'asc' | 'desc' | '';
-    export const SortDirectionEnum = {
-        Asc: 'asc' as SortDirectionEnum,
-        Desc: 'desc' as SortDirectionEnum,
-        Empty: '' as SortDirectionEnum
-    };
+    sortDirection?: string;
 }

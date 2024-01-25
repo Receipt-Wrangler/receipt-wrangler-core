@@ -32,18 +32,9 @@ export interface UpdateGroupSettingsCommand {
     /**
      * Default receipt status
      */
-    emailDefaultReceiptStatus?: UpdateGroupSettingsCommand.EmailDefaultReceiptStatusEnum;
+    emailDefaultReceiptStatus?: string;
     /**
      * User foreign key
      */
     emailDefaultReceiptPaidById?: number;
-}
-export namespace UpdateGroupSettingsCommand {
-    export type EmailDefaultReceiptStatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
-    export const EmailDefaultReceiptStatusEnum = {
-        OPEN: 'OPEN' as EmailDefaultReceiptStatusEnum,
-        NEEDSATTENTION: 'NEEDS_ATTENTION' as EmailDefaultReceiptStatusEnum,
-        RESOLVED: 'RESOLVED' as EmailDefaultReceiptStatusEnum,
-        DRAFT: 'DRAFT' as EmailDefaultReceiptStatusEnum
-    };
 }

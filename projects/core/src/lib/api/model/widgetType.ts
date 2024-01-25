@@ -10,10 +10,9 @@
  * Do not edit the class manually.
  */
 
-export type GroupRole = 'OWNER' | 'VIEWER' | 'EDITOR';
+export type WidgetType = 'GROUP_SUMMARY' | 'FILTERED_RECEIPTS';
 
-export const GroupRole = {
-    OWNER: 'OWNER' as GroupRole,
-    VIEWER: 'VIEWER' as GroupRole,
-    EDITOR: 'EDITOR' as GroupRole
+export const WidgetType = {
+    GROUPSUMMARY: 'GROUP_SUMMARY' as WidgetType,
+    FILTEREDRECEIPTS: 'FILTERED_RECEIPTS' as WidgetType
 };

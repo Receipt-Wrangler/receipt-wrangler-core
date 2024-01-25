@@ -19,18 +19,10 @@ export interface GroupMember {
      * Group compound primary key
      */
     groupId: number;
-    groupRole: GroupMember.GroupRoleEnum;
+    groupRole: string;
     updatedAt?: string;
     /**
      * User compound primary key
      */
     userId: number;
-}
-export namespace GroupMember {
-    export type GroupRoleEnum = 'OWNER' | 'VIEWER' | 'EDITOR';
-    export const GroupRoleEnum = {
-        OWNER: 'OWNER' as GroupRoleEnum,
-        VIEWER: 'VIEWER' as GroupRoleEnum,
-        EDITOR: 'EDITOR' as GroupRoleEnum
-    };
 }

@@ -10,10 +10,11 @@
  * Do not edit the class manually.
  */
 
-export type GroupRole = 'OWNER' | 'VIEWER' | 'EDITOR';
+export type FilterOperations = 'CONTAINS' | 'EQUALS' | 'GREATER_THAN' | 'LESS_THAN';
 
-export const GroupRole = {
-    OWNER: 'OWNER' as GroupRole,
-    VIEWER: 'VIEWER' as GroupRole,
-    EDITOR: 'EDITOR' as GroupRole
+export const FilterOperations = {
+    CONTAINS: 'CONTAINS' as FilterOperations,
+    EQUALS: 'EQUALS' as FilterOperations,
+    GREATERTHAN: 'GREATER_THAN' as FilterOperations,
+    LESSTHAN: 'LESS_THAN' as FilterOperations
 };

@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { AppData } from '../model/appData';
 import { LoginCommand } from '../model/loginCommand';
 import { SignUpCommand } from '../model/signUpCommand';
 
@@ -105,9 +106,9 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public login(body: LoginCommand, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public login(body: LoginCommand, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public login(body: LoginCommand, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public login(body: LoginCommand, observe?: 'body', reportProgress?: boolean): Observable<AppData>;
+    public login(body: LoginCommand, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AppData>>;
+    public login(body: LoginCommand, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AppData>>;
     public login(body: LoginCommand, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -125,6 +126,7 @@ export class AuthService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -140,7 +142,7 @@ export class AuthService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/login/`,
+        return this.httpClient.request<AppData>('post',`${this.basePath}/login/`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

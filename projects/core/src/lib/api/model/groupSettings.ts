@@ -40,7 +40,7 @@ export interface GroupSettings {
     /**
      * Default receipt status
      */
-    emailDefaultReceiptStatus?: GroupSettings.EmailDefaultReceiptStatusEnum;
+    emailDefaultReceiptStatus?: string;
     /**
      * User foreign key
      */
@@ -48,13 +48,4 @@ export interface GroupSettings {
     createdAt?: string;
     createdBy?: number;
     updatedAt?: string;
-}
-export namespace GroupSettings {
-    export type EmailDefaultReceiptStatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
-    export const EmailDefaultReceiptStatusEnum = {
-        OPEN: 'OPEN' as EmailDefaultReceiptStatusEnum,
-        NEEDSATTENTION: 'NEEDS_ATTENTION' as EmailDefaultReceiptStatusEnum,
-        RESOLVED: 'RESOLVED' as EmailDefaultReceiptStatusEnum,
-        DRAFT: 'DRAFT' as EmailDefaultReceiptStatusEnum
-    };
 }

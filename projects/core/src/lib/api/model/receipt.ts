@@ -62,7 +62,7 @@ export interface Receipt {
      * Date resolved
      */
     resolvedDate?: string;
-    status: Receipt.StatusEnum;
+    status: string;
     /**
      * Tags associated to receipt
      */
@@ -72,13 +72,4 @@ export interface Receipt {
      * Created by string, which is anything that is not a user
      */
     createdByString?: string;
-}
-export namespace Receipt {
-    export type StatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
-    export const StatusEnum = {
-        OPEN: 'OPEN' as StatusEnum,
-        NEEDSATTENTION: 'NEEDS_ATTENTION' as StatusEnum,
-        RESOLVED: 'RESOLVED' as StatusEnum,
-        DRAFT: 'DRAFT' as StatusEnum
-    };
 }

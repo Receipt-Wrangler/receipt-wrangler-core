@@ -37,14 +37,6 @@ export interface Item {
      * Receipt foreign key
      */
     receiptId: number;
-    status: Item.StatusEnum;
+    status: string;
     updatedAt?: string;
-}
-export namespace Item {
-    export type StatusEnum = 'OPEN' | 'RESOLVED' | 'DRAFT';
-    export const StatusEnum = {
-        OPEN: 'OPEN' as StatusEnum,
-        RESOLVED: 'RESOLVED' as StatusEnum,
-        DRAFT: 'DRAFT' as StatusEnum
-    };
 }

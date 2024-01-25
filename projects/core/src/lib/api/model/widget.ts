@@ -29,16 +29,9 @@ export interface Widget {
     /**
      * Type of widget
      */
-    widgetType?: Widget.WidgetTypeEnum;
+    widgetType?: string;
     /**
      * Configuration of widget
      */
     configuration?: { [key: string]: any; };
-}
-export namespace Widget {
-    export type WidgetTypeEnum = 'GROUP_SUMMARY' | 'FILTERED_RECEIPTS';
-    export const WidgetTypeEnum = {
-        GROUPSUMMARY: 'GROUP_SUMMARY' as WidgetTypeEnum,
-        FILTEREDRECEIPTS: 'FILTERED_RECEIPTS' as WidgetTypeEnum
-    };
 }

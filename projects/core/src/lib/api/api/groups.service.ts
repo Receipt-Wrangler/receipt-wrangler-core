@@ -248,6 +248,53 @@ export class GroupsService {
     }
 
     /**
+     * Reads each image in a group and returns the zipped read text
+     * This will get the ocr text, zipped, for each image in a group and one text file per image
+     * @param groupId Group Id to get ocr text for
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getOcrTextForGroup(groupId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getOcrTextForGroup(groupId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getOcrTextForGroup(groupId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getOcrTextForGroup(groupId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (groupId === null || groupId === undefined) {
+            throw new Error('Required parameter groupId was null or undefined when calling getOcrTextForGroup.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/group/${encodeURIComponent(String(groupId))}/ocrText`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Poll group email
      * This will poll the group email for new receipts and add them to the group
      * @param groupId Group Id to poll

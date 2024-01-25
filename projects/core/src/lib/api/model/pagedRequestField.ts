@@ -14,18 +14,9 @@ export interface PagedRequestField {
     /**
      * Filter operation
      */
-    operation: PagedRequestField.OperationEnum;
+    operation: string;
     /**
      * Field value
      */
     value: string | number | Array<string> | Array<number>;
-}
-export namespace PagedRequestField {
-    export type OperationEnum = 'CONTAINS' | 'EQUALS' | 'GREATER_THAN' | 'LESS_THAN';
-    export const OperationEnum = {
-        CONTAINS: 'CONTAINS' as OperationEnum,
-        EQUALS: 'EQUALS' as OperationEnum,
-        GREATERTHAN: 'GREATER_THAN' as OperationEnum,
-        LESSTHAN: 'LESS_THAN' as OperationEnum
-    };
 }

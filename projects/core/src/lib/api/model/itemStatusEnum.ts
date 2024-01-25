@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-export type GroupRole = 'OWNER' | 'VIEWER' | 'EDITOR';
+export type ItemStatusEnum = 'OPEN' | 'RESOLVED' | 'DRAFT';
 
-export const GroupRole = {
-    OWNER: 'OWNER' as GroupRole,
-    VIEWER: 'VIEWER' as GroupRole,
-    EDITOR: 'EDITOR' as GroupRole
+export const ItemStatusEnum = {
+    OPEN: 'OPEN' as ItemStatusEnum,
+    RESOLVED: 'RESOLVED' as ItemStatusEnum,
+    DRAFT: 'DRAFT' as ItemStatusEnum
 };

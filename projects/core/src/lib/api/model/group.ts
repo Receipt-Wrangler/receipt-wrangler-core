@@ -36,13 +36,6 @@ export interface Group {
      * Is all group for user
      */
     isAllGroup: boolean;
-    status: Group.StatusEnum;
+    status: string;
     updatedAt?: string;
-}
-export namespace Group {
-    export type StatusEnum = 'ACTIVE' | 'ARCHIVED';
-    export const StatusEnum = {
-        ACTIVE: 'ACTIVE' as StatusEnum,
-        ARCHIVED: 'ARCHIVED' as StatusEnum
-    };
 }
