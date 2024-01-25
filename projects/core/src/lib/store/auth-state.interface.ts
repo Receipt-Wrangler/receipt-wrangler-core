@@ -1,12 +1,12 @@
-import { UserPreferences } from '../api/model/userPreferences';
-import { User } from '../api/model/user';
+import { UserRoleEnum } from "../api";
+import { UserPreferences } from "../api/model/userPreferences";
 
 export interface AuthStateInterface {
   userId?: string;
   displayname?: string;
   username?: string;
   expirationDate?: string;
-  userRole?: User.UserRoleEnum;
+  userRole?: UserRoleEnum;
   defaultAvatarColor?: string;
   userPreferences?: UserPreferences;
 }
