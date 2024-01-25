@@ -24,14 +24,6 @@ export interface ReceiptPagedRequestCommand {
      * field to order on
      */
     orderBy?: string;
-    sortDirection?: ReceiptPagedRequestCommand.SortDirectionEnum;
+    sortDirection?: string;
     filter?: ReceiptPagedRequestFilter;
-}
-export namespace ReceiptPagedRequestCommand {
-    export type SortDirectionEnum = 'asc' | 'desc' | '';
-    export const SortDirectionEnum = {
-        Asc: 'asc' as SortDirectionEnum,
-        Desc: 'desc' as SortDirectionEnum,
-        Empty: '' as SortDirectionEnum
-    };
 }

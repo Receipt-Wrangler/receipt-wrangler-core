@@ -10,4 +10,9 @@
  * Do not edit the class manually.
  */
 
-export type GroupStatus = string;
+export type GroupStatus = 'ACTIVE' | 'ARCHIVED';
+
+export const GroupStatus = {
+    ACTIVE: 'ACTIVE' as GroupStatus,
+    ARCHIVED: 'ARCHIVED' as GroupStatus
+};

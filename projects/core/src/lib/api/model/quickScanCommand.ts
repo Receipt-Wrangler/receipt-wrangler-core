@@ -23,14 +23,5 @@ export interface QuickScanCommand {
     /**
      * Status of quick scanned receipt
      */
-    status: QuickScanCommand.StatusEnum;
-}
-export namespace QuickScanCommand {
-    export type StatusEnum = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
-    export const StatusEnum = {
-        OPEN: 'OPEN' as StatusEnum,
-        NEEDSATTENTION: 'NEEDS_ATTENTION' as StatusEnum,
-        RESOLVED: 'RESOLVED' as StatusEnum,
-        DRAFT: 'DRAFT' as StatusEnum
-    };
+    status: string;
 }

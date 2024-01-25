@@ -10,4 +10,11 @@
  * Do not edit the class manually.
  */
 
-export type ReceiptStatus = string;
+export type ReceiptStatus = 'OPEN' | 'NEEDS_ATTENTION' | 'RESOLVED' | 'DRAFT';
+
+export const ReceiptStatus = {
+    OPEN: 'OPEN' as ReceiptStatus,
+    NEEDSATTENTION: 'NEEDS_ATTENTION' as ReceiptStatus,
+    RESOLVED: 'RESOLVED' as ReceiptStatus,
+    DRAFT: 'DRAFT' as ReceiptStatus
+};

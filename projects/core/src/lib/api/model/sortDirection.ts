@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-export type GroupRole = 'OWNER' | 'VIEWER' | 'EDITOR';
+export type SortDirection = 'asc' | 'desc' | '';
 
-export const GroupRole = {
-    OWNER: 'OWNER' as GroupRole,
-    VIEWER: 'VIEWER' as GroupRole,
-    EDITOR: 'EDITOR' as GroupRole
+export const SortDirection = {
+    Asc: 'asc' as SortDirection,
+    Desc: 'desc' as SortDirection,
+    Empty: '' as SortDirection
 };

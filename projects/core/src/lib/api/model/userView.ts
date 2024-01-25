@@ -37,12 +37,5 @@ export interface UserView {
     /**
      * User's role
      */
-    userRole: UserView.UserRoleEnum;
-}
-export namespace UserView {
-    export type UserRoleEnum = 'ADMIN' | 'USER';
-    export const UserRoleEnum = {
-        ADMIN: 'ADMIN' as UserRoleEnum,
-        USER: 'USER' as UserRoleEnum
-    };
+    userRole: string;
 }

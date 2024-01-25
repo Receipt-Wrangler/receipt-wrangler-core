@@ -10,10 +10,9 @@
  * Do not edit the class manually.
  */
 
-export type GroupRole = 'OWNER' | 'VIEWER' | 'EDITOR';
+export type UserRoleEnum = 'ADMIN' | 'USER';
 
-export const GroupRole = {
-    OWNER: 'OWNER' as GroupRole,
-    VIEWER: 'VIEWER' as GroupRole,
-    EDITOR: 'EDITOR' as GroupRole
+export const UserRoleEnum = {
+    ADMIN: 'ADMIN' as UserRoleEnum,
+    USER: 'USER' as UserRoleEnum
 };

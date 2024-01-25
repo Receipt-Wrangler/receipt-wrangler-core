@@ -14,9 +14,9 @@ export interface FeatureConfig {
     /**
      * Whether AI powered receipts are enabled
      */
-    aiPoweredReceipts?: boolean;
+    aiPoweredReceipts: boolean;
     /**
      * Whether local sign up is enabled
      */
-    enableLocalSignUp?: boolean;
+    enableLocalSignUp: boolean;
 }

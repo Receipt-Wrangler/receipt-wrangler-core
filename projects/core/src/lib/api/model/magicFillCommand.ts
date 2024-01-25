@@ -14,9 +14,9 @@ export interface MagicFillCommand {
     /**
      * Image data
      */
-    imageData?: Array<number>;
+    imageData: Array<number>;
     /**
      * Name of file
      */
-    filename?: string;
+    filename: string;
 }
