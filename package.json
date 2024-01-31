@@ -1,6 +1,6 @@
 {
   "name": "@receipt-wrangler/receipt-wrangler-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared client code for Receipt Wrangler",
   "repository": {
     "type": "git",
