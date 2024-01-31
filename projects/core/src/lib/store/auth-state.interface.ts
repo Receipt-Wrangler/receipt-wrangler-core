@@ -1,4 +1,4 @@
-import { UserRoleEnum } from "../api";
+import { UserRole } from "../api";
 import { UserPreferences } from "../api/model/userPreferences";
 
 export interface AuthStateInterface {
@@ -6,7 +6,7 @@ export interface AuthStateInterface {
   displayname?: string;
   username?: string;
   expirationDate?: string;
-  userRole?: UserRoleEnum;
+  userRole?: UserRole;
   defaultAvatarColor?: string;
   userPreferences?: UserPreferences;
 }

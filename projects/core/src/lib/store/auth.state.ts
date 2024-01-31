@@ -1,15 +1,10 @@
-import { Injectable } from '@angular/core';
-import {
-  Action,
-  createSelector,
-  Selector,
-  State,
-  StateContext,
-} from '@ngxs/store';
-import { User } from '../api/model/user';
-import { AuthStateInterface } from './auth-state.interface';
-import { Logout, SetAuthState, SetUserPreferences } from './auth.state.actions';
-import { UserPreferences } from '../api';
+import { Injectable } from "@angular/core";
+import { Action, createSelector, Selector, State, StateContext } from "@ngxs/store";
+
+import { UserPreferences } from "../api";
+import { User } from "../api/model/user";
+import { AuthStateInterface } from "./auth-state.interface";
+import { Logout, SetAuthState, SetUserPreferences } from "./auth.state.actions";
 
 @State<AuthStateInterface>({
   name: 'auth',
@@ -69,15 +64,15 @@ export class AuthState {
     { getState, patchState }: StateContext<AuthStateInterface>,
     payload: SetAuthState
   ) {
-    const claims = payload.userClaims as any;
+    const claims = payload.userClaims;
 
     patchState({
-      defaultAvatarColor: claims['DefaultAvatarColor'],
-      displayname: claims['Displayname'],
-      expirationDate: claims['exp']?.toString(),
-      userId: claims['UserId']?.toString(),
-      username: claims['Username'],
-      userRole: claims['UserRole'],
+      defaultAvatarColor: claims.defaultAvatarColor,
+      displayname: claims.displayName,
+      expirationDate: claims?.exp?.toString(),
+      userId: claims?.userId?.toString(),
+      username: claims?.username,
+      userRole: claims?.userRole,
     });
   }
 
