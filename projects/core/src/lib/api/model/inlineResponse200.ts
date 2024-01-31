@@ -9,20 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SortDirection } from './sortDirection';
+import { Claims } from './claims';
+import { TokenPair } from './tokenPair';
 
-export interface PagedRequestCommand { 
-    /**
-     * Page number
-     */
-    page: number;
-    /**
-     * Number of records per page
-     */
-    pageSize: number;
-    /**
-     * field to order on
-     */
-    orderBy?: string;
-    sortDirection?: SortDirection;
-}
+export type InlineResponse200 = TokenPair | Claims;

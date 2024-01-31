@@ -10,4 +10,9 @@
  * Do not edit the class manually.
  */
 
-export type UserRole = string;
+export type UserRole = 'ADMIN' | 'USER';
+
+export const UserRole = {
+    ADMIN: 'ADMIN' as UserRole,
+    USER: 'USER' as UserRole
+};

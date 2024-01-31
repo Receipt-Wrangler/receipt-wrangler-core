@@ -9,20 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SortDirection } from './sortDirection';
 
-export interface PagedRequestCommand { 
+export interface TokenPair { 
     /**
-     * Page number
+     * JWT token
      */
-    page: number;
+    jwt: string;
     /**
-     * Number of records per page
+     * Refresh token
      */
-    pageSize: number;
-    /**
-     * field to order on
-     */
-    orderBy?: string;
-    sortDirection?: SortDirection;
+    refreshToken: string;
 }

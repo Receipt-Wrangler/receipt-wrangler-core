@@ -11,6 +11,7 @@
  */
 import { GroupMember } from './groupMember';
 import { GroupSettings } from './groupSettings';
+import { GroupStatus } from './groupStatus';
 
 /**
  * Group in the system
@@ -36,6 +37,6 @@ export interface Group {
      * Is all group for user
      */
     isAllGroup: boolean;
-    status: string;
+    status: GroupStatus;
     updatedAt?: string;
 }

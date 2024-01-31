@@ -9,20 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SortDirection } from './sortDirection';
 
-export interface PagedRequestCommand { 
-    /**
-     * Page number
-     */
-    page: number;
-    /**
-     * Number of records per page
-     */
-    pageSize: number;
-    /**
-     * field to order on
-     */
-    orderBy?: string;
-    sortDirection?: SortDirection;
-}
+export type FilterOperation = 'CONTAINS' | 'EQUALS' | 'GREATER_THAN' | 'LESS_THAN';
+
+export const FilterOperation = {
+    CONTAINS: 'CONTAINS' as FilterOperation,
+    EQUALS: 'EQUALS' as FilterOperation,
+    GREATERTHAN: 'GREATER_THAN' as FilterOperation,
+    LESSTHAN: 'LESS_THAN' as FilterOperation
+};

@@ -17,6 +17,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { AppData } from '../model/appData';
+import { Claims } from '../model/claims';
 import { ResetPasswordCommand } from '../model/resetPasswordCommand';
 import { UpdateProfileCommand } from '../model/updateProfileCommand';
 import { User } from '../model/user';
@@ -274,14 +276,57 @@ export class UserService {
     }
 
     /**
+     * Get app data
+     * This will return the user&#x27;s app data for the currently logged in user [SYSTEM USER]
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAppData(observe?: 'body', reportProgress?: boolean): Observable<AppData>;
+    public getAppData(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AppData>>;
+    public getAppData(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AppData>>;
+    public getAppData(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearerAuth) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<AppData>('get',`${this.basePath}/user/appData`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Get claims for logged in user
      * This will return the user&#x27;s token claims for the currently logged in user [SYSTEM USER]
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserClaims(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getUserClaims(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getUserClaims(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getUserClaims(observe?: 'body', reportProgress?: boolean): Observable<Claims>;
+    public getUserClaims(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Claims>>;
+    public getUserClaims(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Claims>>;
     public getUserClaims(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -295,6 +340,7 @@ export class UserService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -305,7 +351,7 @@ export class UserService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('get',`${this.basePath}/user/getUserClaims`,
+        return this.httpClient.request<Claims>('get',`${this.basePath}/user/getUserClaims`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

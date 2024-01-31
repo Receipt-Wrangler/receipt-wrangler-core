@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ReceiptStatus } from './receiptStatus';
 
 export interface QuickScanCommand { 
     file: Blob;
@@ -20,8 +21,5 @@ export interface QuickScanCommand {
      * User foreign key
      */
     paidByUserId: number;
-    /**
-     * Status of quick scanned receipt
-     */
-    status: string;
+    status: ReceiptStatus;
 }

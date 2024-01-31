@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ItemStatus } from './itemStatus';
 
 /**
  * Itemized item on a receipt
@@ -37,6 +38,6 @@ export interface Item {
      * Receipt foreign key
      */
     receiptId: number;
-    status: string;
+    status: ItemStatus;
     updatedAt?: string;
 }

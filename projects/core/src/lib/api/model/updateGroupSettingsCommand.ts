@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { GroupSettingsWhiteListEmail } from './groupSettingsWhiteListEmail';
+import { ReceiptStatus } from './receiptStatus';
 import { SubjectLineRegex } from './subjectLineRegex';
 
 export interface UpdateGroupSettingsCommand { 
@@ -29,10 +30,7 @@ export interface UpdateGroupSettingsCommand {
      * Email white list
      */
     emailWhiteList: Array<GroupSettingsWhiteListEmail>;
-    /**
-     * Default receipt status
-     */
-    emailDefaultReceiptStatus?: string;
+    emailDefaultReceiptStatus?: ReceiptStatus;
     /**
      * User foreign key
      */

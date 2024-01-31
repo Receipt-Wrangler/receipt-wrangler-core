@@ -1,10 +1,10 @@
-import { UserPreferences } from '../api/model/userPreferences';
-import { AuthStateInterface } from './auth-state.interface';
+import { Claims } from "../api";
+import { UserPreferences } from "../api/model/userPreferences";
 
 export class SetAuthState {
   static readonly type = '[Auth] Set Auth State';
 
-  constructor(public userClaims: AuthStateInterface) {}
+  constructor(public userClaims: Claims) {}
 }
 
 export class SetUserPreferences {

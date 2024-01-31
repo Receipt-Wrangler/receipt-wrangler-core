@@ -9,15 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Claims } from './claims';
 import { Group } from './group';
 import { UserPreferences } from './userPreferences';
 import { UserView } from './userView';
 
 export interface AppData { 
-    /**
-     * User's claims
-     */
-    claims: any;
+    claims: Claims;
     /**
      * Groups in the system
      */
@@ -26,10 +24,7 @@ export interface AppData {
      * Users in the system
      */
     users: Array<UserView>;
-    /**
-     * User preferences in the system
-     */
-    userPreferences: Array<UserPreferences>;
+    userPreferences: UserPreferences;
     /**
      * JWT token
      */

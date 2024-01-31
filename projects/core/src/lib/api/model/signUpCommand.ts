@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { UserRole } from './userRole';
 
 export interface SignUpCommand { 
     /**
@@ -27,8 +28,5 @@ export interface SignUpCommand {
      * Whether the user is a dummy user
      */
     isDummyUser?: boolean;
-    /**
-     * User's role
-     */
-    userRole?: boolean;
+    userRole?: UserRole;
 }

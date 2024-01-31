@@ -10,4 +10,10 @@
  * Do not edit the class manually.
  */
 
-export type ItemStatus = string;
+export type ItemStatus = 'OPEN' | 'RESOLVED' | 'DRAFT';
+
+export const ItemStatus = {
+    OPEN: 'OPEN' as ItemStatus,
+    RESOLVED: 'RESOLVED' as ItemStatus,
+    DRAFT: 'DRAFT' as ItemStatus
+};

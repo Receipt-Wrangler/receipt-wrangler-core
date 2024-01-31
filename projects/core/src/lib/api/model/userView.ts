@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { UserRole } from './userRole';
 
 /**
  * User in the system
@@ -34,8 +35,5 @@ export interface UserView {
      */
     isDummyUser: boolean;
     updatedAt?: string;
-    /**
-     * User's role
-     */
-    userRole: string;
+    userRole: UserRole;
 }

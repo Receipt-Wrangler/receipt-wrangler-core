@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { GroupRole } from './groupRole';
 
 /**
  * Group member
@@ -19,7 +20,7 @@ export interface GroupMember {
      * Group compound primary key
      */
     groupId: number;
-    groupRole: string;
+    groupRole: GroupRole;
     updatedAt?: string;
     /**
      * User compound primary key

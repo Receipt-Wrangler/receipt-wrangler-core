@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { BulkStatusUpdateCommand } from '../model/bulkStatusUpdateCommand';
 import { Receipt } from '../model/receipt';
 import { ReceiptPagedRequestCommand } from '../model/receiptPagedRequestCommand';
+import { ReceiptStatus } from '../model/receiptStatus';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -432,10 +433,10 @@ export class ReceiptService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: string, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
-    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
-    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
-    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: ReceiptStatus, observe?: 'body', reportProgress?: boolean): Observable<Receipt>;
+    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: ReceiptStatus, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Receipt>>;
+    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: ReceiptStatus, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Receipt>>;
+    public quickScanReceiptForm(file: Blob, groupId: number, paidByUserId: number, status: ReceiptStatus, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (file === null || file === undefined) {
             throw new Error('Required parameter file was null or undefined when calling quickScanReceipt.');

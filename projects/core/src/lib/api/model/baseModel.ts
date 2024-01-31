@@ -11,8 +11,12 @@
  */
 
 export interface BaseModel { 
-    createdAt?: string;
+    id: number;
+    createdAt: string;
     createdBy?: number;
-    id?: number;
+    /**
+     * Created by entity's name
+     */
+    createdByString?: string;
     updatedAt?: string;
 }

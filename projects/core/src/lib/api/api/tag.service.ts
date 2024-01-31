@@ -65,9 +65,9 @@ export class TagService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createTag(body: UpsertTagCommand, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createTag(body: UpsertTagCommand, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createTag(body: UpsertTagCommand, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createTag(body: UpsertTagCommand, observe?: 'body', reportProgress?: boolean): Observable<Tag>;
+    public createTag(body: UpsertTagCommand, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tag>>;
+    public createTag(body: UpsertTagCommand, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tag>>;
     public createTag(body: UpsertTagCommand, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -85,6 +85,7 @@ export class TagService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -100,7 +101,7 @@ export class TagService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/tag/`,
+        return this.httpClient.request<Tag>('post',`${this.basePath}/tag/`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -311,9 +312,9 @@ export class TagService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'body', reportProgress?: boolean): Observable<Tag>;
+    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tag>>;
+    public updateTag(body: UpsertTagCommand, tagId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tag>>;
     public updateTag(body: UpsertTagCommand, tagId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -335,6 +336,7 @@ export class TagService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -350,7 +352,7 @@ export class TagService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('put',`${this.basePath}/tag/${encodeURIComponent(String(tagId))}`,
+        return this.httpClient.request<Tag>('put',`${this.basePath}/tag/${encodeURIComponent(String(tagId))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

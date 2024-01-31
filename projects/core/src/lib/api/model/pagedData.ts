@@ -11,6 +11,6 @@
  */
 
 export interface PagedData { 
-    data: Array<any>;
+    data: Array<{ [key: string]: any; }>;
     totalCount: number;
 }
