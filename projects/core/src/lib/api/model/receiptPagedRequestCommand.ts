@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { ReceiptPagedRequestFilter } from './receiptPagedRequestFilter';
+import { SortDirection } from './sortDirection';
 
 export interface ReceiptPagedRequestCommand { 
     /**
@@ -24,6 +25,6 @@ export interface ReceiptPagedRequestCommand {
      * field to order on
      */
     orderBy?: string;
-    sortDirection?: string;
+    sortDirection?: SortDirection;
     filter?: ReceiptPagedRequestFilter;
 }

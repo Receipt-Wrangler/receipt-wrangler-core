@@ -9,16 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { WidgetType } from './widgetType';
 
 export interface UpsertWidgetCommand { 
     /**
      * Widget name
      */
     name?: string;
-    /**
-     * Type of widget
-     */
-    widgetType: string;
+    widgetType: WidgetType;
     /**
      * Configuration of widget
      */

@@ -9,8 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { BaseModel } from './baseModel';
+import { ReceiptStatus } from './receiptStatus';
 
-export interface UserPreferences { 
+export interface UserPreferences extends BaseModel { 
     /**
      * User preferences id
      */
@@ -27,8 +29,5 @@ export interface UserPreferences {
      * User foreign key
      */
     quickScanDefaultPaidById?: number;
-    /**
-     * Default quick scan status
-     */
-    quickScanDefaultStatus?: string;
+    quickScanDefaultStatus?: ReceiptStatus;
 }

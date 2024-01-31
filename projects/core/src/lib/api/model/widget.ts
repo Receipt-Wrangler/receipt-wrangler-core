@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { WidgetType } from './widgetType';
 
 /**
  * Widget related to a user's dashboard
@@ -26,10 +27,7 @@ export interface Widget {
      */
     dashboardId: number;
     updatedAt?: string;
-    /**
-     * Type of widget
-     */
-    widgetType?: string;
+    widgetType?: WidgetType;
     /**
      * Configuration of widget
      */

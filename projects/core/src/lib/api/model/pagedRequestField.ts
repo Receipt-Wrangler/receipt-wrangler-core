@@ -9,12 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { FilterOperation } from './filterOperation';
 
 export interface PagedRequestField { 
-    /**
-     * Filter operation
-     */
-    operation: string;
+    operation: FilterOperation;
     /**
      * Field value
      */

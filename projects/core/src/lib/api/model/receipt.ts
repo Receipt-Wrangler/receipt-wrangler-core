@@ -13,6 +13,7 @@ import { Category } from './category';
 import { Comment } from './comment';
 import { FileData } from './fileData';
 import { Item } from './item';
+import { ReceiptStatus } from './receiptStatus';
 import { Tag } from './tag';
 
 /**
@@ -62,7 +63,7 @@ export interface Receipt {
      * Date resolved
      */
     resolvedDate?: string;
-    status: string;
+    status: ReceiptStatus;
     /**
      * Tags associated to receipt
      */

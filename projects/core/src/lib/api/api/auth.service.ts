@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AppData } from '../model/appData';
+import { InlineResponse200 } from '../model/inlineResponse200';
 import { LoginCommand } from '../model/loginCommand';
 import { SignUpCommand } from '../model/signUpCommand';
 
@@ -63,9 +64,9 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getNewRefreshToken(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getNewRefreshToken(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getNewRefreshToken(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getNewRefreshToken(observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
+    public getNewRefreshToken(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
+    public getNewRefreshToken(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
     public getNewRefreshToken(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -79,6 +80,7 @@ export class AuthService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -89,7 +91,7 @@ export class AuthService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('post',`${this.basePath}/token/`,
+        return this.httpClient.request<InlineResponse200>('post',`${this.basePath}/token/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
