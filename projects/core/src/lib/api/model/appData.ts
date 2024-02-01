@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { Claims } from './claims';
+import { FeatureConfig } from './featureConfig';
 import { Group } from './group';
 import { UserPreferences } from './userPreferences';
 import { UserView } from './userView';
@@ -25,6 +26,7 @@ export interface AppData {
      */
     users: Array<UserView>;
     userPreferences: UserPreferences;
+    featureConfig: FeatureConfig;
     /**
      * JWT token
      */
